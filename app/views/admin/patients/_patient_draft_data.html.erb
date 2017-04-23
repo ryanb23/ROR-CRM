@@ -1,0 +1,12 @@
+<% patient_draft_data.each do |patient_data| %>
+	<tr>
+		<td><%= patient_data.id %></td>
+		<td><%= patient_data.file_type %></td>
+		<td>Draft</td>
+		<td><%= patient_data.created_at %></td>
+		<td>
+			<%= link_to edit_admin_patient_draft_datum_path(patient_data) do %><i class="fa fa-edit"></i><% end %>
+			<%= link_to admin_patient_draft_datum_path(patient_data), data: { confirm: "Are you sure ?" }, method: :delete do %><i class="fa fa-trash"></i><% end %>
+		</td>
+	</tr>
+<% end %>

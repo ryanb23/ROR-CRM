@@ -1,0 +1,34 @@
+fr:
+  custom_role_id:
+    root: Super Admin
+    IT_admin: Administrateur IT
+    manager: Manager
+    internal_physician_supervisor: Superviseur interne médecin
+    customer: Client
+    delegated_customer: Client délégué
+    establishment_admin: Administrateur établissement
+    service_admin: Administrateur service
+    physician: Prestataire médecin
+    technical_service_provider: Prestataire technique
+    admin_staff: Personnels administratifs
+    salesman_before_sale: Commercial avant vente
+    salesman: Commercial SAV
+    patient: Patient
+  settings:
+    general_setting: Cadre général
+    value: Valeur
+    price: Prix
+    action: action
+    ecg: ECG
+    workflow_type: Type de workflow
+    payment_type: Payment Type
+    billing_price: Type de paiement
+    payment_waiting_delay: Délai d'attente de paiement
+    analysis_delay: Délai d'analyse
+    polygraphic: Polygraphique
+    hour: Heure
+    user_type:
+      provider_price: Prix ​​fournisseur
+      customer_price: Prix ​​client
+  javascript:
+    please_select: "Veuillez sélectionner"

@@ -1,0 +1,15 @@
+fr:
+  registration:
+    heading:
+      main: "CRÉATION DE COMPTE"
+      sub-heading:
+        general:
+          main: "Informations générales"
+          sub-heading:
+            informations: "Informations - fr"
+            delegated_customer: "Client délégué"
+            bank_account: "compte bancaire"
+            skill: "Compétence"
+            insurance: "Assurance"
+    fields:
+      Account Type: "Account Type - fr"

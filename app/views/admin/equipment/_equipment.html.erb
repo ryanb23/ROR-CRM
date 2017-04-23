@@ -1,0 +1,18 @@
+<tr>
+	<td><%= equipment.serial_number %></td>
+	<td><%= I18n.locale == :en ? equipment&.start_date&.strftime("%d-%m-%Y") : equipment&.start_date&.strftime("%d/%m/%Y") %><br></td>
+	<td><%= I18n.locale == :en ? equipment&.end_date&.strftime("%d-%m-%Y") : equipment&.end_date&.strftime("%d/%m/%Y") %></td>
+	<td><%= equipment.leasing_reference %></td>
+	<td><%= equipment.equipment_model.name %></td>
+	<% if has_permission(controller_path,"update") || has_permission(controller_path,"destroy") %>
+		<td>
+			<% if has_permission(controller_path,"update") %>
+		  	<%= link_to edit_admin_equipment_path(equipment) do %><i class="fa fa-edit"></i><% end %>
+		  <% end %>
+		  <% if has_permission(controller_path,"destroy") %>
+		  	<%= link_to admin_equipment_path(equipment), data: { confirm: "Are you sure ?" }, method: :delete do %><i class="fa fa-trash"></i><% end %>
+		  <% end %>
+		</td>
+	<% end %>
+
+</tr>

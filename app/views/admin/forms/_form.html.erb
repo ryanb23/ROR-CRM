@@ -1,0 +1,182 @@
+<div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Upload file</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <%= form_for [:admin, @resource],class: "form-horizontal" do |f| %>
+                    <!-- <form method="post" action="#" class="form-horizontal"> -->
+                        <div id="general-information" class="box white-bg">
+                            <div class="form-heading">
+                                <h3>Upload file</h3>
+                                <div class="divider dark-gray-bg"></div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <h4 for="accoun-type" class="control-label">1. File type</h4>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <select name="file-type" class="file-type form-control">
+                                            <option value="">Select File Type</option>
+                                            <option value="1">ECG</option>
+                                            <option value="2">Polygraphic</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h4 for="informations" class="col-sm-12 control-label">2. Patient information</h4>
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-4">
+                                        <label for="lastname" class="col-sm-12">Last Name</label>
+                                        <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Last Name">
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <label for="firstname" class="col-sm-12">First Name</label>
+                                        <input type="text" class="form-control" name="firstname" id="firstname" placeholder="First Name">
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 ">
+                                        <label for="sex " class="col-sm-12 ">Sex</label>
+                                        <select name="sex " class="form-control ">
+                                            <option value="">Select Sex</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <label for="date_of_birth" class="col-sm-12">Date of Birth</label>
+                                        <div class="input-group ">
+                                            <input type="text" class="form-control" name="birth-date" id="birth-date" placeholder="Date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar-o"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%= f.nested_fields_for :patients, Patient.new do |ff| %>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            <label for="ethnic-group" class="col-sm-12 ">Ethnic group</label>
+                                            <select name="ethnic-group" class="form-control">
+                                                <option value="">Select Ethnic Group</option>
+                                                <option value="1 ">1</option>
+                                                <option value="2 ">2</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            <label for="social-security-number" class="col-sm-12 ">Social security number</label>
+                                            <%= ff.text_field :social_security_number,class: "form-control",id: "note",placeholder: "Social security number"%>
+                                        </div>
+                                        <br>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            <label for="weight " class="col-sm-12 ">Weight</label>
+                                            <%= ff.text_field :weight,class: "form-control",id: "note",placeholder: "Weight"%>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            <label for="size " class="col-sm-12 ">Size</label>
+                                            <input type="text " class="form-control " name="size " id="size " placeholder="Size ">
+                                        </div>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            <label for="health-insurance" class="col-sm-12 ">Health insurance</label>
+                                            <input type="text" class="form-control " name="health-insurance" id="health-insurance" placeholder="Health insurance">
+                                        </div>
+                                    <div class="col-md-12 col-sm-12">
+                                        <label for="phone-number" class="col-sm-12 ">Medical context</label>
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6">
+                                                <label for="contextes-medical" class="col-sm-12 "></label>
+                                                <select name="contextes-medical" class="form-control ">
+                                                    <option value=" ">Select Contextes medical</option>
+                                                    <option value="1 ">1</option>
+                                                    <option value="2 ">2</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6">
+                                                <label for="contextes-medical" class="col-sm-12 "></label>
+                                                <textarea name="note" id="note" class="form-control" placeholder="Note" style="height:45px;"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% end %>
+                                    <div class="col-md-8 col-sm-8">
+                                        <label for="email" class="col-sm-12 ">Email</label>
+                                        <input type="email" class="form-control " name="email" id="email" placeholder="Email">
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <label for="phone-number" class="col-sm-12 ">Phone number</label>
+                                        <input type="tel" class="form-control " name="phone-number" id="phone-number" placeholder="Phone number">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h4 for="informations" class="col-sm-12 control-label">3. Patient autorisation</h4>
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-4">
+                                        <div class="radio">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="agreement" id="patient-agreement" value="patient-agreement"> Patient agreement
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4">
+                                        <div class="radio">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="agreement" id="trusted-person-agreement" value="trusted-person-agreement">Trusted person agreement
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-md-offset-2">
+                                        <label for="trusted-person-name" class="col-sm-12"></label>
+                                        <input type="text" class="form-control" name="trusted-person-name" id="trusted-person-name" placeholder="Trusted person name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-3">
+                                        <h4 for="informations" class="control-label" style="margin-top:12px;">4. File upload</h4>
+                                    </div>
+                                    <div class="col-md-9 col-sm-9 ">
+                                        <label for="upload_file" class="col-sm-12"></label>
+                                        <div class="input-group ">
+                                            <input type="text " class="form-control " name="competence-photo-path " id="competence-photo-path " placeholder="Upload Photo ">
+                                            <input type="file" class="form-control hide upload-file-btn " name="upload-file-path " id="upload-file-path ">
+                                            <div class="upload-dummy input-group-addon" onclick="$('.upload-file-btn').click(); ">
+                                                <i class="fa fa-download"></i> Importer
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <h4 for="informations " class="col-sm-12 control-label ">5. Identification</h4>
+                                <div class="row ">
+                                    <div class="col-md-4 col-sm-4 ">
+                                        <label for="password" class="col-sm-12 ">Password</label>
+                                        <input type="password" class="form-control " name="password" id="password" placeholder="Password">
+                                    </div>
+
+                                   
+                                </div>
+                                 <a href="#"><u>Mot de passe oublie ?</u></a>
+                            </div>
+                           
+                        </div>
+                        
+                        
+                        <div class="form-group ">
+                            <div class="row ">
+                                <div class="col-md-2 col-sm-2 ">
+                                    <input type="reset " class="btn btn-default " value="Cancel ">
+                                </div>
+                                <div class="col-md-2 col-md-offset-8 col-sm-offset-8 col-sm-2 text-right ">
+                                    <input type="submit " class="btn btn-default " value="Upload">
+                                </div>
+                            </div>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>

@@ -1,0 +1,67 @@
+<!-- <table border="0" cellspacing="0" cellpadding="0" id="index_table_permissions" class="index_table index">
+	<%#=semantic_form_for [:admin,@permission] do |f| %>
+		<%#count = role.count %>
+		<thead>
+			<tr>
+				<th rowspan="3">
+					Module
+				</th>
+				<th colspan="<%#= count %>" style="text-align: center;">
+					Role/Permission
+				</th>
+				<tr>
+					<%# role.each do |role| %>
+						<th><%# if I18n.locale == :en %>
+									<%#=role.name_en.capitalize%>
+								<%# elsif I18n.locale == :fr %>
+									<%#=role.name_fr.capitalize%>
+								<%# end %><br>C|E|R|D</th>
+					<%#end %>
+				</tr>
+			</tr>
+		</thead>
+
+		<tbody>
+				<tr>
+					<td>
+						<%#include_controller.each do |controller| %>
+							<div style="float: left;width: 100%;height: 30px;"><%#=controller %></div>
+						<%#end %>
+							<br>
+					</td>
+					<%#role.find_each do |r| %>
+						<td>
+							<div style="float: left;width: 100%;height: 30px;">
+								<%#cnt=0 %>
+								<%#all_controller.includes(:role_permissions).find_each do |p| %>
+									<%#= f.input :permissions, :as => :check_boxes,:collection=>all_controller.ids.inject({}) { |p,r| p[r] = role.ids[all_controller.ids]},:label=>false %>
+									<%#= f.check_box :permissions,all_controller.map{ |p| ["",r.id.to_s + "/" + p.id.to_s]}%>
+									<%#cnt=cnt +1 %>
+							    <%#=check_box_tag "permission[permissions][]", r.id.to_s + "/" + p.id.to_s,p.find_role(r.custom_role_id)%>
+							    <%#if cnt >= 4 %>
+							    	<br>
+							    <%#end %>
+							    <%#if cnt == 4 %>
+							    	<%#cnt=0 %></div><div style="float: left;width: 100%;height: 30px;">
+							    <%#end %>
+							  <%#end %>
+						  </div>
+						</td>
+					<%#end %>
+				</tr>
+			<tr>
+				<td colspan="<%#= count + 1 %>" style="text-align: center;"><%#= f.button :save ,:class=>"btn-save"%></button></td>
+			</tr>
+		</tbody>
+	<%#end %>
+</table> -->
+<%= form_for [:admin, @resource],class: "form-horizontal" do |f| %>
+<% @resources.each do |resource|  %>
+ 	<%= collection_check_boxes :role, :permission_ids, Permission.all, :id, :name_with_local, :include_hidden => false do |permission| %>
+	<%= permission.label do %>
+		<%= permission.text %>
+		<%= permission.check_box checked:  %>
+	<% end %>
+<% end %>
+<% end %>
+<% end %>

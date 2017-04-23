@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  equipment_brand_id: one
+
+two:
+  name: MyString
+  equipment_brand_id: two

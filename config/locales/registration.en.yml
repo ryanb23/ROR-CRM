@@ -1,0 +1,15 @@
+en:
+  registration:
+    heading:
+      main: "ACCOUNT CREATION"
+      sub-heading:
+        general:
+          main: "General Information"
+          sub-heading:
+            informations: "Informations"
+            delegated_customer: "Delegated Customer"
+            bank_account: "Bank account"
+            skill: "Skill"
+            insurance: "Insurance"
+    fields:
+      Account Type: "Account Type"

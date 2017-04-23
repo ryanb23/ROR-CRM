@@ -1,0 +1,78 @@
+<div class="container-fluid ">
+  <% if @form.payments.paid.present? %>
+    <h3>You already paid this analysis</h3>
+  <% else %>
+    <div class="row ">
+        <div class="col-md-12 col-sm-12 ">
+            <h2>Invoice number <%= @invoice.id %></h2>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-md-12 ">
+            <div id="payment-information " class="box white-bg ">
+                <div class="form-heading ">
+                    <h3>Payment</h3>
+                    <div class="divider dark-gray-bg "></div>
+                </div>
+                <div class="form-group ">
+                    <div class="row ">
+                        <div class="col-md-2 col-sm-2 ">
+                            <h4 class="bold-heading text-center ">AMOUNT</h4>
+                            <div class="margin-top-25 "></div>
+                            <span class="big-text text-center "><%= number_with_precision @invoice.amount, precision: 2 %> <i class="fa fa-eur "></i></span>
+                        </div>
+                        <div class="col-md-offset-1 col-md-8 col-sm-offset-1 col-sm-8 ">
+                            <h4 class="bold-heading ">DETAILS OF THE INVOICE</h4>
+                            <div class="margin-top-25 "></div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporal incididunt ut labore</p>
+                        </div>
+                    </div>
+                </div>
+                <%= form_for @payment, html: { class: "form-horizontal padding-block" } do |f| %>
+                    <%= f.hidden_field :form_id, value: @form.id %>
+                    <div class="row ">
+                        <div class="col-md-12 ">
+                            <div class="row ">
+                                <div class="col-md-offset-2 col-md-9 col-sm-offset-2 col-sm-9 ">
+                                    <div class="row ">
+                                        <label for="card_number " class="col-md-3 col-sm-3 ">Card number :</label>
+                                        <div class="col-md-5 col-sm-6 ">
+                                        <%= f.text_field :card_number, class: "form-control", id: "card_number", placeholder: "Card number" %>
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                        <label for="expire_date " class="col-md-3 col-sm-3 ">Expires on :</label>
+                                        <div class="col-md-5 col-sm-6 ">
+                                            <div class="row ">
+                                                <div class="col-md-6 col-sm-6 expire_month ">
+                                                  <%= select_tag "payment[expire_month]", options_for_select((1..12)), prompt: "XX", class: "form-control" %>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 ">
+                                                  <%= select_tag "payment[expire_year]", options_for_select((2017..2021)), prompt: "XX", class: "form-control" %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                        <label for="cvv_number " class="col-md-3 col-sm-3 ">CVV :</label>
+                                        <div class="col-md-5 col-sm-6 ">
+                                        <%= text_field_tag "payment[cvv_number]", nil, class: "form-control", id: "cvv_number", placeholder: "CVV"  %>
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                        <label for="cvv_number " class="col-md-3 col-sm-3 "></label>
+                                        <div class="col-md-4 col-sm-5 ">
+                                        <%= f.submit "validate" ,class: "btn btn-default gray-bg pull-right " %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- </form> -->
+                <% end %>
+            </div>
+        </div>
+    </div>
+  <% end %>
+</div>

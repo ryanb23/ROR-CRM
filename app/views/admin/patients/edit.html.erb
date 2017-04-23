@@ -1,0 +1,690 @@
+<%#= render "form" %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Upload file</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="has-error">
+      <% if @user && @user.errors.any? %>
+        <div class="blockquote-box clearfix">
+          <span class="help-block">
+           <b>ERROR:</b>
+            <ul>
+              <% @user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+         </span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <%= form_for [:admin, @resource],class: "form-horizontal", html: { multipart: true } do |f| %>
+      <!-- <form method="post" action="#" class="form-horizontal"> -->
+      <%#= exit %>
+        <div id="general-information" class="box white-bg">
+          <div class="form-heading">
+            <h3>Upload file</h3>
+            <div class="divider dark-gray-bg"></div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-4">
+                  <h4 for="accoun-type" class="control-label">1. File type</h4>
+              </div>
+              <div class="col-sm-8">
+                <%= select_tag 'form[file_type]',options_for_select(Form.form_types.keys, @patient.file_type),class: "file-type form-control", required: true ,prompt: "Select File Type" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <h4 for="informations" class="col-sm-12 control-label">2. Patient information</h4>
+            <div class="row">
+              <div class="col-md-4 col-sm-4">
+                <label for="lastname" class="col-sm-12">Last Name</label>
+                <%= text_field_tag :lastname, @patient.lastname, placeholder: 'Last Name',class: "form-control",name: 'user[lastname]',required: true %>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <label for="firstname" class="col-sm-12">First Name</label>
+                <%= text_field_tag :firstname, @patient.firstname, placeholder: 'First Name',class: "form-control",name: 'user[firstname]',required: true %>
+              </div>
+              <div class="col-md-4 col-sm-4 ">
+                <label for="sex " class="col-sm-12 ">Sex</label>
+                <%= select_tag 'user[gender]',options_for_select([["Male", 0], ["Female", 1]], @patient.gender),class: "file-type form-control gender", required: true ,prompt: "Select Sex" %>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <label for="date_of_birth" class="col-sm-12">Date of Birth</label>
+                <div class="input-group addon-form-group">
+                  <%= text_field_tag :date_of_birth, @patient.birth_date, placeholder: 'Date',class: "form-control date",name: 'user[date_of_birth]',id: "patient-dob",required: true, data: {"date-format": 'dd-mm-yyyy' }%>
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar-o"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-4 ">
+                <label for="ethnic-group" class="col-sm-12 ">Ethnic group</label>
+                <%= f.select :ethenic_group, options_for_select([["European", "european"], ["African", "african"], ["American", "american"]],@patient.ethenic_group), { prompt: "Select Ethnic Group" }, {class: "form-control ethenic_group", required: true} %>
+              </div>
+              <div class="col-md-4 col-sm-4 ">
+                <label for="social-security-number" class="col-sm-12 ">Social security number</label>
+                <%= f.text_field :social_security_number,value: @patient.social_security_number,class: "form-control",id: "social_security_number",placeholder: "Social security number",required: true%>
+              </div>
+              <br>
+              <div class="col-md-4 col-sm-4 ">
+                <label for="weight " class="col-sm-12 ">Weight</label>
+                <%= f.number_field :weight,min:1,value: @patient.weight,class: "form-control",id: "weight",placeholder: "Weight"%>
+              </div>
+              <div class="col-md-4 col-sm-4 ">
+                <label for="size " class="col-sm-12 ">Size</label>
+                <%= f.number_field :height,min:1,value: @patient.height,class: "form-control",id: "size",placeholder: "Size"%>
+              </div>
+              <div class="col-md-4 col-sm-4 ">
+                <label for="health-insurance" class="col-sm-12 ">Health insurance</label>
+                <%= f.text_field :health_insurance,value: @patient.health_insurance,class: "form-control",id: "health-insurance",placeholder: "Health insurance"%>
+              </div>
+              <div class="col-md-12 col-sm-12">
+                <label for="phone-number" class="col-sm-12 ">Medical context</label>
+                <div class="row">
+                  <div class="col-md-6 col-sm-6">
+                    <label for="contextes-medical" class="col-sm-12 "></label>
+                    <select name="form[medical_context][]" class="form-control" id="medical_context" multiple= true>
+                    </select>
+                  </div>
+                  <div class="col-md-6 col-sm-6">
+                    <label for="contextes-medical" class="col-sm-12 "></label>
+                    <%= text_area_tag :note,@patient.note,class: "form-control",placeholder: "Note",style: "height:45px;" %>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8 col-sm-8">
+                <label for="email" class="col-sm-12 ">Email</label>
+                <%= email_field_tag :email, @patient.email, class: "form-control",placeholder: "Email",name: 'user[email]'%>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <label for="phone-number" class="col-sm-12 ">Phone number</label>
+                <%= text_field_tag :phone_number, @patient.phone,class: "form-control",id: "phone-number",placeholder: "Phone number",name: "user[phone_number]"%>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <h4 for="informations" class="col-sm-12 control-label">3. Patient autorisation</h4>
+            <div class="row">
+              <div class="col-md-3 col-sm-4">
+                <div class="radio">
+                  <label class="radio-inline">
+                    <%= f.radio_button :patient_agreement, "normal_patient_agreement",required: true, :checked => (@patient.patient_agreement == "null" ? false : true) %>
+                    <%= f.label :patient_agreement, 'Patient agreement' %>
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-4">
+                <div class="radio">
+                  <label class="radio-inline">
+                    <%= f.radio_button :patient_agreement, "trust_person_agreement",required: true,:checked => (@patient.trusted_person_agreement == "null" ? false : true) %>
+                      <%#= f.radio_button :patient_agreement, "trusted_person_agreement",required: true  %>
+                    <%= f.label :patient_agreement, 'Trusted person agreement' %>
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-4 col-md-offset-2 trusted_person_name" style="display: none">
+                <label for="trusted-person-name" class="col-sm-12"></label>
+                <%=f.text_field :trusted_person_name,value: @patient.trusted_person_name,class: "form-control",id: "trusted-person-name",placeholder: "Trusted person name",required: true  %>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-3 col-md-3">
+                <h4 for="informations" class="control-label" style="margin-top:12px;">4. File upload</h4>
+              </div>
+              <div class="col-md-9 col-sm-9 ">
+                <label for="upload_file" class="col-sm-12"></label>
+                <div class="input-group ">
+                  <input type="text " class="form-control file_upload" name="competence-photo-path " id="competence-photo-path" placeholder="Upload Photo" autocomplete="off" value="<%= @patient_file.present? ? @patient_file.join(',') : ' ' %>">
+                  <%#= file_field_tag 'file[]',:multiple => true,id: "upload-file-path" %>
+                  <%= file_field_tag 'file[]',:multiple => true,value: @patient_file, class: 'form-control hide upload-file-btn',id: "upload-file-path" %>
+                  <div class="upload-dummy input-group-addon" onclick="$('.upload-file-btn').click(); ">
+                    <i class="fa fa-download"></i> Importer
+                  <%= image_tag("loader.gif",id: "loading-image",class: "patient-loader-img") %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group ">
+            <h4 for="informations " class="col-sm-12 control-label ">5. Identification</h4>
+            <div class="row ">
+              <div class="col-md-4 col-sm-4 ">
+                <label for="password" class="col-sm-12 ">Password</label>
+                <%= password_field_tag :password,@patient.password, class: "form-control",placeholder: "Password",name: "user[password]" %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <%= hidden_field_tag 'patient_draft_data_id', @patient.id %>
+        <div class="form-group ">
+          <div class="row ">
+            <div class="col-md-2 col-sm-2 ">
+              <a href="/admin/patients" class="btn btn-default cancel_btn">Cancel</a>
+              <!-- <input type="reset" class="btn btn-default " value="Cancel "> -->
+            </div>
+            <div class="col-md-2 col-md-offset-8 col-sm-offset-8 col-sm-2 text-right ">
+              <%= f.submit t('activerecord.buttons.Upload'),class: "btn btn-default file_upload_btn" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<script>
+$(document).on("turbolinks:load", function() {
+  fillUpMedicalContext(<%=raw @patient.medical_context %>)
+  if($("#patient_patient_agreement_trust_person_agreement").is(':checked')){
+    $('.trusted_person_name').show();
+  }
+  $(".file_upload_btn").on('click',function(){
+    localStorage.clear();
+    flag = false;
+  })
+
+  // localStorage.clear();
+})
+$(function(){
+  jQuery.browser = {};
+})
+var flag = false;
+var flag1 = false;
+var patient_aggrement,lastname,firstname,dob,social_security_number,health_insurance,phone_number,password,email,file_type,gender,ethenic_group,weight,size,medical_context,note,trusted_name,medical_context_data_new,trusted_person_agreement,file_size,file_type;
+var file_upload_name = []
+var file_upload_size = []
+var file_upload_type = []
+var trusted_person_name = $('.trusted_person_name').clone();
+// $('input[type=file]').change(function() {
+//   var i;
+//   $('#competence-photo-path').val('')
+//   for(i=0;i<$(this)[0].files.length;i++){
+//      $('#competence-photo-path').val($("#competence-photo-path").val() + $(this)[0].files[i].name + '   ');
+//   }
+// });
+$('#medical_context').select2();
+$(document).off('.datepicker.data-api');
+$("#patient-dob").datepicker({
+  endDate: 'today',
+  autoclose: true
+}).on('change', function(e) {
+  $(this).blur();
+});
+// $(".date").on("blur", function(e) { $(this).datepicker("hide"); });
+
+$("input[type=text]").on('focus',function(){
+  flag = true;
+})
+$("select").on('focus',function(){
+  flag = true;
+})
+$("input[type=radio]").on('click',function(){
+  flag = true;
+})
+$("input[type=password]").on('focus',function(){
+  flag = true;
+})
+$("input[type=email]").on('focus',function(){
+  flag = true;
+})
+$("input[type=number]").on('focus',function(){
+  flag = true;
+})
+$("textarea").on('focus',function(){
+  flag = true;
+})
+$(".upload-file-btn").on('click',function(){
+  flag = true;
+})
+$('#dashboard').find('a').click(function(){
+  if (flag == true){
+    var values = confirm("Do you really want to cancel ?")
+    if(values == false)
+      return false
+  }
+  if(localStorage){
+    get_data()
+    console.log(lastname+"lastname")
+    if(typeof(Storage)!=="undefined" && typeof(Storage)!=='null' && flag1 == true)
+    {
+      $.ajax({
+        type: 'PUT',
+        url: '/admin/patient_draft_data/<%= @patient.id %>',
+        data: {'lastname' : lastname,'firstname' : firstname,'gender' : gender,'dob' : dob,'ethenic_group' : ethenic_group,'social_security_number' : social_security_number,'weight' : weight,'size' : size,'health_insurance' : health_insurance, 'medical_context' : medical_context_data_new,'note' : note,'email' : email,'phone_number' : phone_number,'patient_aggrement' : patient_aggrement,'trusted_person_agreement' : trusted_person_agreement,'trusted_name' : trusted_name,'password' : password,file_id:file_id,'file_type': file_type},
+        dataType: 'script'
+      })
+    }
+    // set_data_value_from_local_storage()
+  }
+  localStorage.clear();
+  flag1 = false;
+  flag = false;
+})
+$(".cancel_btn").on('click',function(){
+  if (flag == true){
+    var values = confirm("Do you really want to cancel ?")
+    if(values == false)
+      return false
+  }
+})
+$(".dropdown").find('li').click(function(){
+  if (flag == true){
+    var values = confirm("Do you really want to cancel ?")
+    if(values == false)
+      return false
+  }
+   if(localStorage){
+    get_data()
+    console.log(lastname+"lastname")
+    if(typeof(Storage)!=="undefined" && typeof(Storage)!=='null'  && flag1 == true)
+    {
+
+      $.ajax({
+        type: 'PUT',
+        url: '/admin/patient_draft_data/<%= @patient.id %>',
+        data: {'lastname' : lastname,'firstname' : firstname,'gender' : gender,'dob' : dob,'ethenic_group' : ethenic_group,'social_security_number' : social_security_number,'weight' : weight,'size' : size,'health_insurance' : health_insurance, 'medical_context' : medical_context_data_new,'note' : note,'email' : email,'phone_number' : phone_number,'patient_aggrement' : patient_aggrement,'trusted_person_agreement' : trusted_person_agreement,'trusted_name' : trusted_name,'password' : password,file_id:file_id,'file_type': file_type},
+        dataType: 'script'
+      })
+    }
+    localStorage.clear();
+    flag1 = false;
+    flag = false
+    // set_data_value_from_local_storage()
+  }
+  // if(localStorage){
+  //   get_data()
+  //   console.log(lastname+"lastname")
+  //   if(typeof(Storage)!=="undefined" && typeof(Storage)!=='null')
+  //   {
+
+  //     $.ajax({
+  //       type: 'POST',
+  //       url: '/admin/patient_draft_data',
+  //       data: {'lastname' : lastname,'firstname' : firstname,'gender' : gender,'dob' : dob,'ethenic_group' : ethenic_group,'social_security_number' : social_security_number,'weight' : weight,'size' : size,'health_insurance' : health_insurance, 'medical_context' : medical_context_data_new,'note' : note,'email' : email,'phone_number' : phone_number,'patient_aggrement' : patient_aggrement,'trusted_person_agreement' : trusted_person_agreement,'trusted_name' : trusted_name,'password' : password,'file_type' : file_type},
+  //       dataType: 'script'
+  //     })
+  // }
+  //   // set_data_value_from_local_storage()
+  // }
+})
+
+$('#patient_patient_agreement_normal_patient_agreement').on('click',function(){
+  $('.trusted_person_name').hide();
+})
+$('#patient_patient_agreement_trust_person_agreement').on('click',function(){
+   $('.trusted_person_name').show();
+})
+if($('.file-type').val() == "ECG"){
+  $("#medical_context").html('<option value="sport">Sport</option><option value="chest pain">Chest pain</option><option value="discomfort">Discomfort</option><option value="dyspnea">Dyspnea</option>')
+}
+else{
+  $("#medical_context").html('<option value="weight">Weight</option><option value="cut">Cut</option><option value="suspicion of SAS">Suspicion of SAS</option><option value="epworth">Epworth</option>')
+}
+$('.file-type').on('change',function(){
+  var file_type_value = $(this).val();
+  if(file_type_value == "ECG"){
+    $("#medical_context").html('<option value="sport">Sport</option><option value="chest pain">Chest pain</option><option value="discomfort">Discomfort</option><option value="dyspnea">Dyspnea</option>')
+  }
+  else{
+    $("#medical_context").html('<option value="weight">Weight</option><option value="cut">Cut</option><option value="suspicion of SAS">Suspicion of SAS</option><option value="epworth">Epworth</option>')
+  }
+})
+window.onbeforeunload = function() {
+  // console.log("flag", flag)
+  // debugger;
+  // confirm("Do you really want to cancel ?")
+  if(localStorage){
+    get_data()
+    console.log(lastname+"lastname")
+    if(typeof(Storage)!=="undefined" && typeof(Storage)!=='null'  && flag1 == true)
+    {
+
+      $.ajax({
+        type: 'PUT',
+        url: '/admin/patient_draft_data/<%= @patient.id %>',
+        data: {'lastname' : lastname,'firstname' : firstname,'gender' : gender,'dob' : dob,'ethenic_group' : ethenic_group,'social_security_number' : social_security_number,'weight' : weight,'size' : size,'health_insurance' : health_insurance, 'medical_context' : medical_context_data_new,'note' : note,'email' : email,'phone_number' : phone_number,'patient_aggrement' : patient_aggrement,'trusted_person_agreement' : trusted_person_agreement,'trusted_name' : trusted_name,'password' : password,file_id:file_id,'file_type': file_type},
+        dataType: 'script'
+      }).success(function(data){
+        $("#patient_draft_id").val(data)
+      });
+    }
+
+  // if (flag == true){
+  //   var values = confirm("Do you really want to cancel ?")
+  //   if(values == false)
+  //     return false
+  // }
+  // if (){}
+  // return changes();
+  };
+  if (flag == true){
+    var values = confirm("Do you really want to cancel ?")
+    if(values == false)
+      return false
+  }
+  localStorage.clear();
+  flag1 = false;
+  flag = false
+
+}
+// for local storage
+
+window.setInterval(function(){
+  set_data()
+}, 30000);
+
+$("input[type=text]").on('keyup',function(){
+  flag1 = true
+})
+$("input[type=password]").on('keyup',function(){
+  flag1 = true
+})
+$("input[type=email]").on('keyup',function(){
+  flag1 = true
+})
+$("select").on('change',function(){
+  flag1 = true
+})
+$("textarea").on('keyup',function(){
+  flag1 = true
+})
+$("#patient_patient_agreement_normal_patient_agreement").on('click',function(){
+  flag1 = true;
+  patient_aggrement = $(this).val()
+  trusted_person_agreement = null
+})
+$("#patient_patient_agreement_trust_person_agreement").on('click',function(){
+  flag1 = true;
+  trusted_person_agreement = $("#patient_patient_agreement_trust_person_agreement").val()
+  patient_aggrement = null
+})
+$("input[type=number]").on('keyup',function(){
+  flag1 = true;
+})
+$(".upload-file-btn").on('click',function(){
+  flag1 = true;
+})
+// if(localStorage){
+//     get_data()
+//     set_data_value_from_local_storage()
+// }
+
+// function get_data(){
+
+//   var medical_context_data = []
+//   lastname = localStorage.getItem("lastname")
+//   email = localStorage.getItem("email")
+//   firstname = localStorage.getItem("firstname")
+//   dob = localStorage.getItem("dob")
+//   social_security_number = localStorage.getItem("social_security_number")
+//   health_insurance = localStorage.getItem("health_insurance")
+//   phone_number = localStorage.getItem("phone_number")
+//   password = localStorage.getItem("password")
+//   file_type = localStorage.getItem("file_type")
+//   gender = localStorage.getItem("gender")
+//   ethenic_group = localStorage.getItem("ethenic_group")
+//   weight = localStorage.getItem("weight")
+//   size = localStorage.getItem("size")
+//   medical_context_data = localStorage.getItem("medical_context")
+//   medical_context_data_new = medical_context_data.split(",")
+//   note = localStorage.getItem("note")
+//   patient_aggrement = localStorage.getItem("patient_aggrement")
+//   trusted_person_agreement = localStorage.getItem("trusted_person_agreement")
+//   file_name = localStorage.getItem("file_name")
+//   trusted_name = localStorage.getItem("trusted_name")
+
+// }
+
+// function set_data_value_from_local_storage(){
+
+//   $("#lastname").val(lastname)
+//   $("#email").val(email)
+//   $("#firstname").val(firstname)
+//   $("#patient-dob").val(dob)
+//   $("#social_security_number").val(social_security_number)
+//   $("#health-insurance").val(health_insurance)
+//   $("#phone-number").val(phone_number)
+//   $("#password").val(password)
+//   $("#form_file_type").val(file_type)
+//   $(".gender").val(gender)
+//   $(".ethenic_group").val(ethenic_group)
+//   $("#weight").val(weight)
+//   $("#size").val(size)
+//   $("#medical_context").val(medical_context_data_new).trigger("change")
+//   $("#note").val(note)
+//   $("#competence-photo-path").val(file_name)
+//   if (patient_aggrement != 'null' && patient_aggrement != 'undefined'){
+//     $("#patient_patient_agreement_normal_patient_agreement").val(patient_aggrement)
+//     $("#patient_patient_agreement_normal_patient_agreement").attr('checked',true)
+//   }
+//   if (trusted_person_agreement != 'null' && trusted_person_agreement != 'undefined'){
+//     $("#patient_patient_agreement_trust_person_agreement").val(trusted_person_agreement)
+//     $("#patient_patient_agreement_trust_person_agreement").attr('checked',true)
+//   }
+//   $("#trusted-person-name").val(trusted_name)
+
+// }
+// function set_data(){
+
+//   if (flag1 == true){
+
+//     lastname = $("#lastname").val()
+//     firstname = $("#firstname").val()
+//     dob = $("#patient-dob").val()
+//     social_security_number = $("#social_security_number").val()
+//     health_insurance = $("#health-insurance").val()
+//     phone_number = $("#phone-number").val()
+//     password = $("#password").val()
+//     email = $("#email").val()
+//     file_type = $("#form_file_type").val()
+//     gender = $(".gender").val()
+//     ethenic_group = $(".ethenic_group").val()
+//     weight = $("#weight").val()
+//     size = $("#size").val()
+//     medical_context = $("#medical_context").val()
+//     note = $("#note").val()
+//     file_name = $("#competence-photo-path").val()
+//     trusted_name = $("#trusted-person-name").val()
+
+//     if(typeof(Storage)!=="undefined")
+//     {
+
+//       localStorage.setItem("lastname" , lastname);
+//       localStorage.setItem("firstname" , firstname);
+//       localStorage.setItem("dob" , dob);
+//       localStorage.setItem("social_security_number" , social_security_number);
+//       localStorage.setItem("health_insurance" , health_insurance);
+//       localStorage.setItem("phone_number" , phone_number);
+//       localStorage.setItem("password" , password);
+//       localStorage.setItem("email" , email);
+//       localStorage.setItem("file_type" , file_type);
+//       localStorage.setItem("gender" , gender);
+//       localStorage.setItem("ethenic_group" , ethenic_group);
+//       localStorage.setItem("weight" , weight);
+//       localStorage.setItem("size" , size);
+//       localStorage.setItem("medical_context" , medical_context);
+//       localStorage.setItem("note" , note);
+//       localStorage.setItem("patient_aggrement" , patient_aggrement);
+//       localStorage.setItem("trusted_person_agreement" , trusted_person_agreement);
+//       localStorage.setItem("file_name" , file_name);
+//       localStorage.setItem("trusted_name" , trusted_name);
+//     }
+//   }
+// }
+function get_data(){
+
+  var medical_context_data = []
+  lastname = localStorage.getItem("lastname")
+  email = localStorage.getItem("email")
+  firstname = localStorage.getItem("firstname")
+  dob = localStorage.getItem("dob")
+  social_security_number = localStorage.getItem("social_security_number")
+  health_insurance = localStorage.getItem("health_insurance")
+  phone_number = localStorage.getItem("phone_number")
+  password = localStorage.getItem("password")
+  file_type = localStorage.getItem("file_type")
+  gender = localStorage.getItem("gender")
+  ethenic_group = localStorage.getItem("ethenic_group")
+  weight = localStorage.getItem("weight")
+  size = localStorage.getItem("size")
+  medical_context_data = localStorage.getItem("medical_context")
+  if (medical_context_data) {
+  	medical_context_data_new = medical_context_data.split(",")
+  }
+  note = localStorage.getItem("note")
+  patient_aggrement = localStorage.getItem("patient_aggrement")
+  trusted_person_agreement = localStorage.getItem("trusted_person_agreement")
+  file_upload_name = localStorage.getItem("file_upload_name")
+  file_upload_size = localStorage.getItem("file_upload_size")
+  file_upload_type = localStorage.getItem("file_upload_type")
+  trusted_name = localStorage.getItem("trusted_name")
+  file_id = localStorage.getItem("file_id")
+
+}
+
+function set_data_value_from_local_storage(){
+
+  $("#lastname").val(lastname)
+  $("#email").val(email)
+  $("#firstname").val(firstname)
+  $("#patient-dob").val(dob)
+  $("#social_security_number").val(social_security_number)
+  $("#health-insurance").val(health_insurance)
+  $("#phone-number").val(phone_number)
+  $("#password").val(password)
+  $("#form_file_type").val(file_type)
+  $(".gender").val(gender)
+  $(".ethenic_group").val(ethenic_group)
+  $("#weight").val(weight)
+  $("#size").val(size)
+  $("#medical_context").val(medical_context_data_new).trigger("change")
+  $("#note").val(note)
+  $("#competence-photo-path").val(file_name)
+  if (patient_aggrement != 'null' && patient_aggrement != 'undefined' && patient_aggrement == 'normal_patient_agreement'){
+    console.log("in patent aggrement")
+    $("#patient_patient_agreement_normal_patient_agreement").val(patient_aggrement)
+    $("#patient_patient_agreement_normal_patient_agreement").attr('checked',true)
+  }
+  if (trusted_person_agreement != 'null' && trusted_person_agreement != 'undefined' && trusted_person_agreement == 'trust_person_agreement'){
+    $("#patient_patient_agreement_trust_person_agreement").val(trusted_person_agreement)
+    $("#patient_patient_agreement_trust_person_agreement").attr('checked',true)
+  }
+  $("#trusted-person-name").val(trusted_name)
+
+}
+function set_data(){
+
+  if (flag1 == true){
+    var i;
+    file_upload_name = []
+    file_upload_size = []
+    file_upload_type = []
+
+    lastname = $("#lastname").val()
+    firstname = $("#firstname").val()
+    dob = $("#patient-dob").val()
+    social_security_number = $("#social_security_number").val()
+    health_insurance = $("#health-insurance").val()
+    phone_number = $("#phone-number").val()
+    password = $("#password").val()
+    email = $("#email").val()
+    file_type = $("#form_file_type").val()
+    gender = $(".gender").val()
+    ethenic_group = $(".ethenic_group").val()
+    weight = $("#weight").val()
+    size = $("#size").val()
+    medical_context = $("#medical_context").val()
+    note = $("#note").val()
+    // file_name = $("#upload-file-path")[0].files
+    // for(i=0;i<$("#upload-file-path")[0].files.length;i++){
+
+    //   file_upload_name.push($("#upload-file-path")[0].files[i].name)
+    //   file_upload_size.push($("#upload-file-path")[0].files[i].size)
+    //   file_upload_type.push($("#upload-file-path")[0].files[i].type)
+    // }
+    // console.log(file_name)
+    trusted_name = $("#trusted-person-name").val()
+
+    if(typeof(Storage)!=="undefined")
+    {
+
+      localStorage.setItem("lastname" , lastname);
+      localStorage.setItem("firstname" , firstname);
+      localStorage.setItem("dob" , dob);
+      localStorage.setItem("social_security_number" , social_security_number);
+      localStorage.setItem("health_insurance" , health_insurance);
+      localStorage.setItem("phone_number" , phone_number);
+      localStorage.setItem("password" , password);
+      localStorage.setItem("email" , email);
+      localStorage.setItem("file_type" , file_type);
+      localStorage.setItem("gender" , gender);
+      localStorage.setItem("ethenic_group" , ethenic_group);
+      localStorage.setItem("weight" , weight);
+      localStorage.setItem("size" , size);
+      localStorage.setItem("medical_context" , medical_context);
+      localStorage.setItem("note" , note);
+      localStorage.setItem("patient_aggrement" , patient_aggrement);
+      localStorage.setItem("trusted_person_agreement" , trusted_person_agreement);
+      // localStorage.setItem("file_upload_name" ,file_upload_name);
+      // localStorage.setItem("file_upload_size" , file_upload_size);
+      // localStorage.setItem("file_upload_type" , file_upload_type);
+      localStorage.setItem("trusted_name" , trusted_name);
+
+    }
+  }
+}
+$("#upload-file-path:file").change(function (){
+   // $('#new_patient').submit();
+   var files = $(this).prop("files")
+   var _this = this
+   // for(var i =1;i <= $(this).prop("files").length;i++){
+   //   file_data.push($(this).prop("files")[i]);   // Getting the properties of file from file field
+   // }
+   // debugger;
+    var form_data = new FormData();
+    var patinet_draft_id = "<%= @patient.id %>"
+    // var patient_draft_id =                 // Creating object of FormData class
+    Object.keys(files).forEach(function(key){
+      form_data.append("files[file_"+key+"]", files[key])
+    })
+    form_data.append("patinet_draft_id", patinet_draft_id)
+  // for (var key in files){
+  //  debugger;            // Appending parameter named file with properties of file_field to form_data
+  // }
+    $.ajax({
+                  url: "/admin/patient_draft_data/save_upload_file",
+                  dataType: 'json',
+                  beforeSend: function(){
+                    $('#loading-image').show();
+                  },
+                  cache: false,
+                  contentType: false,
+                  processData: false,
+                  data: form_data,                         // Setting the data attribute of ajax with file_data
+                  type: 'post'
+    })
+    .done(function(fileIds){
+      $('#loading-image').hide();
+      var i;
+      $('#competence-photo-path').val('')
+      for(i=0;i<$(_this)[0].files.length;i++){
+         $('#competence-photo-path').val($("#competence-photo-path").val() + $(_this)[0].files[i].name + '   ');
+      }
+      localStorage.setItem("file_id" , fileIds.ids);
+    })
+
+});
+$(".cancel_btn").on('click',function(){
+  localStorage.clear();
+})
+</script>

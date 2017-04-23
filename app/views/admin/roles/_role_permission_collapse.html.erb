@@ -1,0 +1,90 @@
+<style>
+.card {
+  position: relative;
+  display: block;
+  margin-bottom: 0.75rem;
+  background-color: #fff;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.125)
+}
+.card-header:first-child {
+  border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+  }
+.card-header {
+  padding: 0.50rem 1.25rem;
+  margin-bottom: 0;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+h5, .h5 {
+    font-size: 1.10rem;
+}
+a, a:link, a:visited {
+  color: #38678b;
+  text-decoration: underline;
+}
+.collapse {
+  display: none;
+}
+.card-block {
+    padding: 1.25rem;
+}
+table tr td {
+  width: 10%;
+}
+</style>
+<div id="accordion" role="tablist" aria-multiselectable="true">
+  <% uniq_controller.each do |permission| %>
+    <div class="card">
+      <div class="card-header" role="tab" id="headingOne">
+        <h5 class="mb-0">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <%= permission %>
+          </a>
+        </h5>
+      </div>
+
+      <% all_controller.each do |cont| %>
+        <% if cont.subject_class == permission %>
+          <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+            <div class="card-block">
+              <table>
+                <tr><td><%= I18n.locale == :en ? cont.name_en : cont.name_fr%></td>
+                <td>
+                <%= f.check_box :permission_ids, {multiple: true}, cont.id, nil %></td></tr>
+              </table>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<script>
+$(document).ready(function() {
+   $('.collapse').hide();
+      // console.log($(this).find('div'))
+    $('#headingOne').click(function() {
+      if(!$('#collapseOne').is(':visible')) {
+          $('.collapse').hide(400);
+      }
+      $('.collapse').toggle(400);
+    });
+// $('#headingOne').on('click',function(){
+//   console.log("hiii");
+//   console.log($(this).find('#headingOne').siblings('.collapse'))
+//   // $(this).find('#headingOne').children('.collapse').show();
+//     $('.collapse').show();
+//   // $('.collapse').css("display","none");
+// });
+  //   if ($('.collapse').show()){
+  //     $('#headingOne').on('click',function(){
+  //       $('.collapse').hide();
+  //     });
+  //     console.log("hello")
+  // }
+});
+</script>

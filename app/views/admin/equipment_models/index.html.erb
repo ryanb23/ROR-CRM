@@ -1,0 +1,61 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-9 col-sm-9">
+      <h2><%= t('activerecord.models.equipment_model.heading.main') %></h2>
+    </div>
+    <div class="col-md-3 col-sm-3">
+      <% if has_permission(controller_path,"create") %>
+    	 <%= render "actions" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <% if has_permission(controller_path,"search") %>
+        <%= form_tag search_admin_equipment_models_path, :method => :get,class: "form-horizontal" do |f| %>
+          <div id="search-information" class="box white-bg">
+            <div class="form-heading">
+                <h3><%= t('activerecord.models.equipment_model.heading.Search') %></h3>
+                <div class="divider dark-gray-bg"></div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-4 col-sm-4">
+                  <label for="provider" class="col-sm-12"><%= t('activerecord.models.equipment_model.fields.Equipment Brand') %></label>
+                  <%= select_tag :equipment_brand_id,options_for_select(EquipmentBrand.all.collect { |eb| [eb.name, eb.id]},params[:equipment_brand_id]), prompt: "Select Equipment Brand",class: "form-control" %>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                  <label for="model" class="col-sm-12"><%= t('activerecord.models.equipment_model.fields.Name') %></label>
+                  <%= text_field_tag :name,params[:name],class: "form-control",placeholder: "Name" %>
+                </div>
+                <div class="col-md-2 col-md-offset-10 col-sm-2 col-sm-offset-10">
+                  <button type="button " class="btn btn-default gray-bg pull-right">
+                      Search
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+      <div id="search-information" class="box white-bg">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="table-heading">
+              <tr>
+                <th><%= t('activerecord.models.equipment_model.fields.Equipment Brand') %></th>
+                <th><%= t('activerecord.models.equipment_model.fields.Name') %></th>
+                <% if has_permission(controller_path,"update") || has_permission(controller_path,"destroy") %>
+                  <th><%= t('activerecord.models.equipment_model.fields.Action') %></th>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody>
+            	<%= render @resources %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

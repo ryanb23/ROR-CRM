@@ -1,0 +1,5 @@
+en:
+  notification:
+    created: "Notification generated successfully."
+    create:
+      error: "Error during notification creation."

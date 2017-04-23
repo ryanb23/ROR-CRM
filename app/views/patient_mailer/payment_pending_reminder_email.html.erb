@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+  	<h2>You didn't paid for your form <%= @form.name %></h2> 
+    <h2>Name : <%= @user.full_name || @user.try(:dob) %></h2>
+    <h2>Date of Birth : <%= @user.try(:dob) %></h2>
+    You can payment by clicking this url <%= link_to "Pay Your Analysis" ,payment_of_analysis_form_url(@form,@form.name ) %>
+    <p>Please Pay for analysis as soon as possible and have a great day!</p>
+  </body>
+</html>

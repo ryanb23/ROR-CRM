@@ -1,0 +1,30 @@
+<header class="header">
+  <nav class="navbar dark-gray-bg navbar-fixed-top">
+    <div class="vertical-middle">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            <h2 class="white-text">ZANALYS</h2>
+          </a>
+        </div>
+        <!-- Localize droplist -->
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown" class="white-text">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <% if I18n.locale == :en %>
+                <span data-value="en"><%= "English" %></span>
+              <% elsif I18n.locale == :fr %>
+                <span data-value="fr"><%= "French" %></span>
+              <% end %>
+              <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "English", change_locale_path(:en), class: "sub-menu", data: { value: "en" } %></li>
+              <li><%= link_to "French", change_locale_path(:fr), class: "sub-menu", data: { value: "fr" } %></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

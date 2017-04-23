@@ -1,0 +1,50 @@
+fr:
+  bank_account:
+    new_bank_account: "Nouveau compte bancaire"
+  equipment:
+    new_equipment: "Nouvel équipement"
+  equipment_brand:
+    new_equipment_brand: "Marque du nouvel équipement"
+  equipment_model:
+    new_equipment_model: "Nouveau modèle d'équipement"
+  equipment_type:
+    new_equipment_type: "New Equipment Type - fr"
+  establishment_service:
+    new_establishment_service: "New Establishment Service - fr"
+  establishment:
+    new_establishment: "New Establishment - fr"
+  plan:
+    new_plan: "New Plan - fr"
+  position:
+    new_position: "New Position - fr"
+  role:
+    new_role: "New Role - fr"
+  insurance:
+    add_insurance: "Ajouter une assurance"
+    add_insurance_file: "Ajouter un dossier d'assurance"
+  skill:
+    add_skill: "Ajouter une compétence"
+    new_skill: "New Skill - fr"
+  speciality:
+    new_speciality: "New Speciality - fr"
+  setting:
+    general_setting: "General Setting - fr"
+    value: "Value - fr"
+    price: "Price - fr"
+    action: "Action - fr"
+    ecg: "ECG - fr"
+    workflow_type: "Workflow Type - fr"
+    payment_type: "Payment Type - fr"
+    billing_price: "Analysis Price - fr"
+    technical_provider_price: "Technical Provider Price - fr"
+    payment_waiting_delay: "Payment Delay - fr"
+    technical_provider_delay: "Technical Provider Delay - fr"
+    analysis_delay: "Analysis Delay - fr"
+    action: "Action - fr"
+    polygraphic: "Polygraphic - fr"
+  form:
+    new_form: "New Form - fr"
+  remove: "Retirer"
+  validate: "valider"
+  cancel: "Annuler"
+  search: "Chercher"

@@ -1,0 +1,101 @@
+<div class="container-fluid box white-bg setting_wrapper">
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <h2><%= t("setting.general_setting") %></h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 col-sm-4">
+      <h4><%= t("setting.value") %></h4>
+    </div>
+    <div class="col-md-4 col-sm-4">
+      <h4><%= t("setting.price") %></h4>
+    </div>
+    <div class="col-md-4 col-sm-4">
+      <h4><%= t("setting.action") %></h4>
+    </div>
+  </div>
+  <%= render "general_setting", resources: @resources %>
+</div>
+<div class="container-fluid box white-bg setting_wrapper">
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <h2><%= t("setting.ecg") %></h2>
+    </div>
+  </div>
+  <!-- <div class="row">
+    <div class="col-md-10 col-sm-10">
+      <div class="col-md-2 col-sm-2">
+        <h4><%#= t("setting.workflow_type") %></h4>
+      </div>
+      <div class="col-md-2 col-sm-2">
+        <h4><%#= t("setting.payment_type") %></h4>
+      </div>
+      <div class="col-md-2 col-sm-2">
+        <h4><%#= t("setting.billing_price") %></h4>
+      </div>
+      <div class="col-md-2 col-sm-2">
+        <h4><%#= t("setting.technical_provider_price") %></h4>
+      </div>
+      <div class="col-md-2 col-sm-2 ecg_payment_delay">
+        <h4><%#= t("setting.payment_waiting_delay") %></h4>
+      </div>
+      <div class="col-md-2 col-sm-2">
+        <h4><%#= t("setting.technical_provider_delay") %></h4>
+      </div>
+      <div class="col-md-2 col-sm-2">
+        <h4><%#= t("setting.analysis_delay") %></h4>
+      </div>
+      <div class="col-md-2 col-sm-2">
+        <h4><%#= t("setting.workflow_delay") %></h4>
+      </div>
+    </div>
+    <div class="col-md-2 col-sm-2">
+      <div class="col-md-2 col-sm-2">
+        <h4><%#= t("setting.action") %></h4>
+      </div>
+    </div>
+  </div> -->
+  <%= render 'ecg_setting', ecg_resource: @resources.first %>
+</div>
+<div class="container-fluid box white-bg setting_wrapper">
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <h2><%= t("setting.polygraphic") %></h2>
+    </div>
+  </div>
+  <!-- <div class="row">
+    <div class="col-md-10 col-sm-10">
+      <div class="col-md-2 col-sm-2">
+        <h4><%#= t("setting.workflow_type") %></h4>
+      </div>
+      <div class="col-md-2 col-sm-2">
+        <h4><%#= t("setting.payment_type") %></h4>
+      </div>
+      <div class="col-md-2 col-sm-2">
+        <h4><%#= t("setting.billing_price") %></h4>
+      </div>
+      <div class="col-md-2 col-sm-2">
+        <h4><%#= t("setting.technical_provider_price") %></h4>
+      </div>
+      <div class="col-md-2 col-sm-2 polygraphic_payment_delay">
+        <h4><%#= t("setting.payment_waiting_delay") %></h4>
+      </div>
+      <div class="col-md-2 col-sm-2">
+        <h4><%#= t("setting.technical_provider_delay") %></h4>
+      </div>
+      <div class="col-md-2 col-sm-2">
+        <h4><%#= t("setting.analysis_delay") %></h4>
+      </div>
+      <div class="col-md-2 col-sm-2">
+        <h4><%#= t("setting.workflow_delay") %></h4>
+      </div>
+    </div>
+    <div class="col-md-2 col-sm-2">
+      <div class="col-md-2 col-sm-2">
+        <h4><%#= t("setting.action") %></h4>
+      </div>
+    </div>
+  </div> -->
+  <%= render 'polygraphic_setting', polygraphic_resource: @resources.second %>
+</div>

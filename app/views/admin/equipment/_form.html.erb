@@ -1,0 +1,74 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <h2><%= action_type(@resource) %> Equipment</h2>
+        </div>
+    </div>
+    <div class="row">
+    	<div class="has-error">
+    	  <% if @resource.errors.any? %>
+    	    <div class="blockquote-box clearfix">
+    	      <span class="help-block">
+    	       <b>ERROR:</b>
+    	        <ul>
+    		        <% @resource.errors.full_messages.each do |msg| %>
+    		          <li><%= msg %></li>
+    		      	<% end %>
+    	     		</ul>
+    	     </span>
+    	    </div>
+    	  <% end %>
+    	</div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <%= form_for [:admin, @resource],class: "form-horizontal" do |f| %>
+                <div id="search-information" class="box white-bg">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <label for="Serial Number" class="col-sm-12"><%= t('activerecord.models.equipment.fields.Serial Number') %></label>
+                               	<%= f.text_field :serial_number,class: "form-control",placeholder: "Serial Number",required: "required" %>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <label for="Acquisition Date" class="col-sm-12"><%= t('activerecord.models.equipment.fields.Aquisition Date') %></label>
+                               	<%= f.text_field :acquisition_date,class: "form-control",placeholder: "Acquisition Date", value: @resource.acquisition_date.try(:strftime,"%d-%m-%Y"),required: "required" %>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <label for="Start Date" class="col-sm-12"><%= t('activerecord.models.equipment.fields.Start Date') %></label>
+                               	<%= f.text_field :start_date,class: "form-control form-group",placeholder: "Start Date",value: @resource.start_date.try(:strftime,"%d-%m-%Y"),required: "required" %>                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <label for="End Date" class="col-sm-12"><%= t('activerecord.models.equipment.fields.End Date') %></label>
+                               	<%= f.text_field :end_date,class: "form-control form-group",placeholder: "End Date", value: @resource.end_date.try(:strftime,"%d-%m-%Y"),required: "required" %>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                              <label for="user" class="col-sm-12"><%= t('activerecord.models.equipment.fields.Salesman') %></label>
+                              <% @roles = Role.where("name_en LIKE ?", "Salesman%") %>
+                              <%= f.select(:salesman_id, User.joins(:user_roles).where("role_id IN (?) ", @roles.ids ).uniq.order("first_name").collect {|c| [c.first_name + " " + c.last_name, c.id ]},{},{class: "form-control", name: "equipment[salesman_id]"}) %>
+                            </div>
+														<div class="col-md-6 col-sm-6">
+                                <label for="Incident" class="col-sm-12"><%= t('activerecord.models.equipment.fields.Incident') %></label>
+                               	<%= f.number_field :incident, step: "any" ,class: "form-control",placeholder: "Incident",required: "required" %>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <label for="Leasing Reference" class="col-sm-12"><%= t('activerecord.models.equipment.fields.Leasing Reference') %></label>
+                               	<%= f.text_field :leasing_reference,class: "form-control",placeholder: "Leasing Reference",required: "required" %>
+                            </div>
+														<div class="col-md-6 col-sm-6">
+                                <label for="Status" class="col-sm-12"><%= t('activerecord.models.equipment.fields.Status') %></label>
+                               	<%= f.number_field :status, step: "any",class: "form-control",placeholder: "Status",required: "required" %>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <label for="Equipment Model" class="col-sm-12"><%= t('activerecord.models.equipment.fields.Equipment Model') %></label>
+                                <%= f.select :equipment_model_id, EquipmentModel.all.collect { |em| [em.name, em.id] },{prompt: "Select Equipment Model"}, {class: "form-control width-100",required: "required" } %><br>
+                            </div>
+                            <div class="col-md-2 col-md-offset-10 col-sm-4">
+                            	<%= f.submit action_type_for_button(@resource),class: "btn btn-default gray-bg pull-right" %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>

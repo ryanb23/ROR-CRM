@@ -1,0 +1,42 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <h2><%= action_type(@resource) %> Company</h2>
+    </div>
+  </div>
+  <div class="row">
+  	<div class="has-error">
+  	  <% if @resource.errors.any? %>
+  	    <div class="blockquote-box clearfix">
+  	      <span class="help-block">
+  	       <b>ERROR:</b>
+  	        <ul>
+  		        <% @resource.errors.full_messages.each do |msg| %>
+  		          <li><%= msg %></li>
+  		      	<% end %>
+  	     		</ul>
+  	     </span>
+  	    </div>
+  	  <% end %>
+  	</div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+    	<%= form_for [:admin, @resource],class: "form-horizontal" do |f| %>
+        <div id="search-information" class="box white-bg">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-6 col-sm-6">
+                <label for="Name" class="col-sm-12">Name</label>
+               	<%= f.text_field :name,class: "form-control",placeholder: "Name" %>
+              </div>
+              <div class="col-md-2 col-md-offset-10 col-sm-4">
+              	<%= f.submit action_type_for_button(@resource),class: "btn btn-default gray-bg pull-right" %> 
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

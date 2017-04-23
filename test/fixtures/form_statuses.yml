@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  form: one
+  patient: one
+  status: 1
+
+two:
+  form: two
+  patient: two
+  status: 1

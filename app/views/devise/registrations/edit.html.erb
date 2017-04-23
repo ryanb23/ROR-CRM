@@ -1,0 +1,488 @@
+<!-- <h2>Edit <%#= resource_name.to_s.humanize %></h2>
+
+<%#= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%#= devise_error_messages! %>
+
+  <div class="field">
+    <%#= f.label :email %><br />
+    <%#= f.email_field :email, autofocus: true %>
+  </div>
+
+  <%# if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%#= resource.unconfirmed_email %></div>
+  <%# end %>
+
+  <div class="field">
+    <%#= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%#= f.password_field :password, autocomplete: "off" %>
+    <%# if @minimum_password_length %>
+      <br />
+      <em><%#= @minimum_password_length %> characters minimum</em>
+    <%# end %>
+  </div>
+
+  <div class="field">
+    <%#= f.label :password_confirmation %><br />
+    <%#= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%#= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <%#= f.password_field :current_password, autocomplete: "off" %>
+  </div>
+
+  <div class="actions">
+    <%#= f.submit "Update" %>
+  </div>
+<%# end %>
+
+<h3>Cancel my account</h3>
+
+<p>Unhappy? <%#= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+
+<%#= link_to "Back", :back %>
+ -->
+
+
+ <style>
+ .datepicker{
+  top:0%;
+}
+</style>
+<div class="container-fluid">
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <h2>Edit Profile</h2>
+    </div>
+</div>
+<div class="row">
+  <div class="has-error">
+    <% if resource.errors.any? %>
+      <div class="blockquote-box clearfix">
+        <span class="help-block">
+         <b>ERROR:</b>
+          <ul>
+            <% resource.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+       </span>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+  <%= form_for(resource, url: registration_path(resource_name), html: { method: :put,class: "form-horizontal edit_user_profile" }) do |f| %>
+    <%#= form_for [:admin, @resource],class: "form-horizontal" do |f| %>
+    <%# exit %>
+      <div id="general-information" class="box white-bg">
+        <div class="form-heading">
+          <h3>general information</h3>
+          <div class="divider dark-gray-bg"></div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-2">
+              <h4 for="accoun-type" class="control-label">Account Type</h4>
+            </div>
+            <div class="col-sm-10">
+              <%# check_root = !current_user.roles.exists?(Role.first) %>
+              <%#= f.select(:role_ids, Role.all.collect {|c| [I18n.locale == :en ? c.name_en : c.name_fr,c.id]},{},{:multiple => true,class: "account-type form-control",disabled: check_root }) %>
+              <% if current_user.has_role?("root")  %>
+               <%= f.select(:role_ids, Role.all.order("name_en").collect {|c| [I18n.locale == :en ? c.name_en : c.name_fr,c.id]},{},{:multiple => true,class: "account-type form-control"}) %>
+               <% else %>
+               <%= f.select(:role_ids, Role.role_access.all.order("name_en").collect {|c| [I18n.locale == :en ? c.name_en : c.name_fr,c.id]},{},{:multiple => true,class: "account-type form-control"}) %>
+               <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="form-group">
+          <h4 for="informations" class="col-sm-12 control-label">Informations</h4>
+          <div class="row">
+            <div class="col-md-12 col-sm-12">
+
+            <div class="row">
+              <div class="col-md-4 col-sm-4 ">
+                <label for="profile " class="col-sm-12 ">Email</label>
+                <%= f.email_field :email, autofocus: true, class: "form-control",placeholder: "Email",required: "required" %>
+              </div>
+              <div class="col-md-4 col-sm-4 ">
+                <label for="profile " class="col-sm-12 ">Password</label>
+                  <%= f.password_field :password, autocomplete: "off", class: "form-control",placeholder: "Password"%>
+                  <%#= render partial: "/admin/users/password_box" %>
+              </div>
+              <div class="col-md-4 col-sm-4 ">
+                <label for="profile " class="col-sm-12 ">Confirm Password</label>
+                <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control",placeholder: "Confirm Password" %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 col-sm-4">
+                <label for="photo" class="col-sm-12">Photo</label>
+                <div class="input-group ">
+                    <!-- <div id="display_uploaded_photo"> -->
+                  <input type="text" class="form-control" name="photo-path" id="photo-path" placeholder="Upload Photo" value= "<%= resource.photo_file_name.present? ? resource.photo_file_name : "" %>">
+                  <%=f.file_field :photo,class: "form-control hide upload-btn",id: "photo",accept: "image/png,image/jpg,image/jpeg"%>
+                  <!-- <input type="file" class="form-control hide upload-btn" name="photo" id="photo"> -->
+                  <div class="upload-dummy input-group-addon" onclick="$('.upload-btn').click();">
+                    Upload
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <label for="lastname" class="col-sm-12">Last Name</label>
+                <%= f.text_field :last_name, class: "form-control",id: "lastname", placeholder: "Last Name" %>
+              </div>
+              <div class="col-md-4 col-sm-4">
+              <label for="firstname" class="col-sm-12">First Name</label>
+              <%= f.text_field :first_name, class: "form-control",id: "firstname", placeholder: "First Name" %>
+            </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 col-sm-4 ">
+                <label for="title " class="col-sm-12 ">Title</label>
+                <select name="user[title] " class="form-control registration_page_title">
+                  <option value="1" id="user_title_1">Dr</option>
+                  <option value="2" id="user_title_2"><%= I18n.locale == :en ? "Prn" : "Pr"%></option>
+                  <option value="3" id="user_title_3">Mr</option>
+                  <option value="4" id="user_title_4">Mme</option>
+                </select>
+              </div>
+              <div class="col-md-4 col-sm-4 speciality-drop-list">
+                <label for="speciality " class="col-sm-12">Speciality</label>
+                <%= select_tag "user[speciality_ids]", options_from_collection_for_select(Speciality.all, :id, :name_with_description, f.object.specialities.ids),:multiple => true,class: "form-control user-field val", data: { val: f.object.specialities.ids.map(&:to_s), id: "speciality_ids" } %>
+              </div>
+              <div class="col-md-4 col-sm-4 ">
+              <label for="phone-number " class="col-sm-12 ">Phone number</label>
+              <%= f.text_field :phone, class: "form-control", id: "authy-cellphone",placeholder: "Phone number ",required: "required" %>
+            </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 col-sm-4" style="clear: both;">
+                <label for="speciality " class="col-sm-12 ">Position</label>
+                <%=f.select(:position_ids,Position.all.collect { |p| [p.name, p.id]},{},{ :multiple => true,class: "form-control " })%>
+              </div>
+              <div class="sign_up_page_birthdate">
+              </div>
+              <div class="sign_up_page_signature">
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <label class="col-sm-12" for="user_status">Status</label>
+                <%= f.select(:status,User.statuses.map{|u|[u["Pending".to_i],u["Confirmation_pending".to_i],u["Active".to_i],u["Deactive".to_i]]},{},{class: "form-control ",:selected => resource.status}) %>
+              </div>
+              <div class="col-md-4 col-sm-4" style="">
+              <!-- <% if current_user.has_role?("customer") || current_user.has_role?("technical service provider") || current_user.has_role?("delegated customer")%>
+                Data displayed.
+              <% else %>
+                Data not displayed.
+              <% end %> -->
+              </div>
+            </div>
+
+            <div class="row" id="establishment_fields">
+
+                <div class="col-md-4 col-sm-4" style="padding-bottom: 16px">
+                <%#= exit %>
+                  <label for="emp_status" class="col-sm-12">Employment Status</label>
+                  <div class="input-group custom_input_group">
+                    <%= f.radio_button :emp_status, "Self Employed", :checked => true %>
+                    <%= f.label :emp_status, t('activerecord.buttons.Self Employed') %>
+                    <%= f.radio_button :emp_status, "Employee" %>
+                    <%= f.label :emp_status, t('activerecord.buttons.Employee') %>
+                  </div>
+                </div>
+                <% if resource.emp_status == "Employee" %>
+                  <div class="col-md-4 col-sm-4 employee" id="establishment">
+                    <label class="col-sm-12" for="user_esatblishment">Establishment</label>
+                    <%= f.select(:establishment_id,Establishment.all.collect { |p| [p.name, p.id]},{},{class: "form-control user-field val", :selected => resource.establishment_id, data: { val: f.object.establishment_id, id: "establishment_id" }}) %>
+                  </div>
+                  <div class="col-md-4 col-sm-4 service custom_service" id="service">
+                    <label class="col-sm-12" for="user_esatblishment">Service</label>
+                    <%= f.select(:establishment_service_id,EstablishmentService.all.collect { |p| [p.name, p.id]},{},{class: "form-control user-field val",:selected => resource.establishment_service_id, data: { val: f.object.establishment_service_id, id: "establishment_service_id" }}) %>
+                  </div>
+                <% else %>
+                  <div class="col-md-4 col-sm-4 employee" id="establishment"></div>
+                  <div class="col-md-4 col-sm-4 service custom_service" id="service"></div>
+                <% end %>
+
+            </div>
+          </div>
+
+          </div>
+        </div>
+        <div class="divider "></div>
+        <div class="form-group " id="role-base-field">
+          <h4 for="informations " class="col-sm-12 control-label ">Contact informations</h4>
+          <div class="row ">
+            <div class="col-md-4 col-sm-4 ">
+              <label for="street " class="col-sm-12 ">Address</label>
+              <%= f.text_field :address, class: "form-control",id: "address ",placeholder: "Address " %>
+            </div>
+            <div class="col-md-4 col-sm-4 ">
+              <label for="street " class="col-sm-12 ">Street</label>
+              <%= f.text_field :street, class: "form-control",id: "street ",placeholder: "Street " %>
+            </div>
+            <div class="col-md-4 col-sm-4 ">
+              <label for="zipcode " class="col-sm-12 ">Zip code</label>
+              <%= f.text_field :postal_code, class: "form-control",id: "zipcode ", placeholder: "Zip code " %>
+            </div>
+            <div class="col-md-4 col-sm-4 ">
+              <label for="town " class="col-sm-12 ">City</label>
+              <%= f.text_field :city, class: "form-control",id: "city ", placeholder: "City " %>
+            </div>
+            <div class="col-md-4 col-sm-4 country-select">
+              <label for="country " class="col-sm-12 ">Country</label>
+              <%= f.select(:country, Country.all.collect {|c| [c.name_with_tel_code, c.telephone_code ]},{},{class: "form-control country"}) %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group delegated_customer" id="delegated_customer" style="display: none;">
+            <%= f.nested_fields_for :del_customers, DelCustomer.new do |ff| %>
+              <div class="divider"></div><br>
+              <h4 for="informations " class="col-sm-12 control-label ">Delegated Customer</h4>
+              <div class="row ">
+                <div class="col-md-6 col-sm-6">
+                  <%= ff.select :delegate_customer_id,options_for_select(@del_customers.collect { |p| [p.email, p.id]},resource.customers.pluck(:delegate_customer_id)),{},{class: "form-control delegate_customer_ids",multiple: true} %>
+                </div>
+              </div>
+            <% end %>
+        </div>
+        <%#= exit  %>
+        <div class="form-group bank_account_detail" id="bank_accounts" style="display: none;">
+        <%#=f.add_nested_fields_link :bank_accounts,"+ Add bank_accounts",class: "btn btn-default gray-bg" %>
+        <%#= exit %>
+          <%= f.nested_fields_for :bank_accounts, BankAccount.new do |ff| %>
+            <div class="divider "></div><br>
+            <h4 for="informations " class="col-sm-12 control-label ">Bank account</h4>
+            <div class="row ">
+              <div class="col-md-6 col-sm-6 ">
+                <label for="IBAN " class="col-sm-12 ">IBAN</label>
+                <%= ff.text_field :iban,class: "form-control",id: "IBAN ",placeholder: "IBAN ",:value => resource.bank_accounts.present? ? resource.bank_accounts.first.iban : ""%>
+              </div>
+              <div class="col-md-6 col-sm-6 ">
+                <label for="bic " class="col-sm-12 ">BIC</label>
+                <%= ff.text_field :bic,class: "form-control",id: "BIC ",placeholder: "BIC ",:value => resource.bank_accounts.present? ? resource.bank_accounts.first.bic : ""%>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div id="postal_code_div" class="box white-bg" >
+          <div class="form-group " id="role-base-field1">
+            <%= f.nested_fields_for :salesmans_postal_codes, SalesmansPostalCode.new do |ff| %>
+              <div class="row ">
+                <div class="col-sm-2">
+                  <h4 for="postal_code" class="control-label">Postal Code</h4>
+                </div>
+               <div class="col-sm-10" id="postal_code_wrapper">
+                  <!-- <label for="postal_code " class="col-sm-12 ">Postal Code</label> -->
+                  <%# exit %>
+                  <%= ff.text_field :postal_code,class: "form-control postal",id: "postal_code ",placeholder: "Postal Code", value: @postal_code.present? ? "#{@postal_code.join(',')}" : '' %>
+                  <%#= text_field_tag "postal_code",nil,class: "form-control postal",id: "postal_code ",placeholder: "Postal Code"%>
+                  <!-- /<div id="hidden_postal_code"> -->
+
+                  <%#= ff.hidden_field :postal_code,class: "form-control",id: "postal_code_1",placeholder: "Postal Code"%>
+                  <!-- </div> -->
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+       <!--  <div class="form-group sign_up_page_bank_account_detail">
+        </div> -->
+      </div>
+
+      <div id="skills" class="box white-bg form-group sign_up_page_skillzone">
+        <div class="form-heading">
+          <div class="row" style="padding-bottom: 20px;">
+            <div class="col-md-8 ">
+              <h3 style="margin-top:10px;">Skill</h3>
+            </div>
+            <div class="col-md-4">
+              <%=f.add_nested_fields_link :user_skills,"+ Add a skill",class: "btn btn-default gray-bg" %>
+            </div>
+          </div>
+          <div class="divider dark-gray-bg "></div>
+        </div>
+
+        <div class="form-group ">
+          <div class="row ">
+            <%= f.nested_fields_for :user_skills do |ff| %>
+              <%= hidden_field_tag "old_user_skill_id", ff.object.id %>
+              <div class="col-md-3 col-sm-3 ">
+                <label for="field-of-competence " class="col-sm-12 ">Skill</label>
+                <% if I18n.locale == :fr %>
+                <%=ff.select(:skill_id, Skill.all.collect { |s| [s.name_fr,s.id] },{},{ class: "form-control val", data: { id: ff.object.id, val: ff.object.skill_id }, value: ff.object.skill_id })%>
+                <% elsif I18n.locale == :en %>
+                <%=ff.select(:skill_id, Skill.all.collect { |s| [s.name_en,s.id] },{},{ class: "form-control val", data: { id: ff.object.id, val: ff.object.skill_id }, value: ff.object.skill_id})%>
+                <% else %>
+                <%=ff.select(:skill_id, Skill.all.collect { |s| [s.name_en,s.id] },{},{ class: "form-control val", data: { id: ff.object.id, val: ff.object.skill_id }, value: ff.object.skill_id})%>
+                <% end %>
+              </div>
+              <div class="col-md-3 col-sm-3 ">
+                  <%#= exit %>
+                <label for="competence-photo-path " class="col-sm-12 ">Proof of competence</label>
+                <div class="input-group ">
+                  <input type="text " class="form-control " name="competence-photo-path " id="competence-skill-path" placeholder="Upload Photo ">
+                  <%=ff.file_field :proof , class: "form-control hide skill-upload-btn" ,id: "competence-photo-path", data: {value: ff.object.proof_file_name, id: ff.object.id },accept: "image/png,image/jpg,image/jpeg"%>
+                  <!-- <input type="file" class="form-control hide skill-upload-btn" name="user[user_skills_attributes][__user_user_skills_index__][proof]" id="competence-photo-path" data: {value: fff.object.ins_file_file_name}> -->
+                  <div class="upload-dummy input-group-addon" id="skill_upload" onclick='$(this).prev().click();'>
+                      Upload
+                  </div>
+                  <%#=ff.file_field :proof%>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-3 ">
+                <label for="note " class="col-sm-12 ">Comment</label>
+                <%= ff.text_field :comment,class: "form-control val",id: "note ",placeholder: "Comment ", data: { id: ff.object.id, val: ff.object.comment }%>
+              </div>
+              <div class="col-md-3 col-sm-3 ">
+              <br>
+                <%= ff.remove_nested_fields_link 'Remove',class: "btn btn-default gray-bg" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div id="insurance" class="box white-bg ">
+        <div class="form-heading ">
+          <div class="row" style="padding-bottom: 20px;">
+            <div class="col-md-8 ">
+              <h3 style="margin-top:10px;">Insurance</h3>
+            </div>
+            <div class="col-md-4">
+              <%=f.add_nested_fields_link :insurances,'+ Add Insurance',class: "btn btn-default gray-bg" %>
+            </div>
+          </div>
+          <div class="divider dark-gray-bg "></div>
+        </div>
+        <div class="form-group ">
+          <%= f.nested_fields_for :insurances do |ff| %>
+            <div class="row "  style="margin-top: 14px;">
+              <div class="col-md-4 col-sm-4">
+                <%=ff.label :name,class: "col-sm-12" %>
+                <%=ff.text_field :name, class: "form-control ins-field val",id: "name-of-insurance ", placeholder: "Name of insurance ",required: "required", data: { id: ff.object.id, val: ff.object.name }%>
+              </div>
+              <div class="col-md-4 col-sm-4 ">
+                <label for="date-of-contact " class="col-sm-12 ">End Date of Contact</label>
+                <div class="input-group " id="insurance_end_date" startDate="0d" data-date-format="dd-mm-yyyy"%>
+                  <%=ff.text_field :end_date, class: "form-control insurance_end_date ins-field val",:"data-date-start-date"=>"0d",:"data-date-format"=>"dd-mm-yyyy",:"data-provide"=>"datepicker",required: "required", data: { id: ff.object.id, val: ff.object.end_date&.strftime("%Y-%m-%d") }%>
+                  <div class="input-group-addon " id="insurance_date">
+                    <i class="fa fa-calendar-o "></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4 col-sm-4 " style="margin-top: 34px;">
+                <div class="form-heading ">
+                  <div class="col-md-6">
+                    <%=ff.add_nested_fields_link :insurance_files,'Add Insurance File',class: "btn btn-default gray-bg" %>
+                  </div>
+                  <div class="col-md-6">
+                    <%=ff.remove_nested_fields_link 'Remove',class: "btn btn-default gray-bg" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <%= ff.nested_fields_for :insurance_files do |fff| %>
+              <div class="row">
+                <div class="col-md-12 col-sm-4 ">
+                  <label for="insurance-photo-path " class="col-sm-12 ">Upload</label>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="input-group ">
+                        <input type="text " class="form-control " name="competence-photo-path " id="competence-ins-path" placeholder="Upload Photo ">
+                        <!-- <input type="file" class="form-control hide insurance-upload-btn" name="user[insurances_attributes][__user_insurances_index__][insurance_files_attributes][__user_insurance_insurance_files_index__][ins_file]" id="competence-insurance-path"> -->
+                        <%=fff.file_field :ins_file , class: "form-control hide insurance-upload-btn" ,id: "competence-insurance-path", data: {value: fff.object.ins_file_file_name, id: fff.object.id, "parent-id": ff.object.id}%>
+                        <div class="upload-dummy input-group-addon" id="insurance_upload" onclick="$(this).prev().click();">
+                          Upload
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <%=fff.remove_nested_fields_link 'Remove',class: "btn btn-default gray-bg ins-file-remove-link", data: {id: fff.object.id, "parent-id": ff.object.id}  %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div id="updates-div"></div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-2 col-md-offset-8 col-sm-offset-8 col-sm-2 text-right">
+            <% if action_name == "edit" %>
+            <%= f.submit t('activerecord.buttons.Update'),class: "btn btn-default gray-bg pull-right" %>
+            <% else %>
+            <%= f.submit t('activerecord.buttons.Add'),class: "btn btn-default gray-bg pull-right" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+</div>
+<script src="/assets/tag-it.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+// $(document).ready(function(){
+  var date = '<%= resource.birth_date %>'
+  // debugger
+  // console.log($("#user_birth_date"))
+  setTimeout(function(){
+    $("#user_birth_date").val(date)
+    $(".insurance-upload-btn").each(function(){
+      $(this).prev().val($(this).data("value"))
+    })
+    $(".skill-upload-btn").each(function(){
+      $(this).prev().val($(this).data("value"))
+    })
+  }, 3000)
+  var sign = '<%= resource.signature_file_name %>'
+  setTimeout(function(){
+    $("#sign-path").val(sign)
+  }, 2000)
+  var sign = '<%= resource.signature_file_name %>'
+  // window.postal_code_field $("#nested_fields nested_user_salesmans_postal_codes row").clone()
+   // $(".postal").tagit({
+   //  allowDuplicates :true
+   // })
+  // $(".postal").tagit({
+  //   afterTagAdded: function(event, ui){
+  //     generateElement(this.value)
+  //   }
+  // });
+  // function generateElement(tags){
+  //   var tag_field = document.createElement("div")
+  //   tags=tags.split(",")
+  //   console.log(tags)
+  //   tag_field.setAttribute("type", "hidden")
+  //   // var tag_field = '<input class="form-control" placeholder="Postal Code" type="hidden" name="user[salesmans_postal_codes_attributes][0][postal_code]">')
+  //   tags.forEach(function(value, i){
+  //     tag_field.setAttribute("name", "user[salesmans_postal_codes_attributes]["+i+"][postal_code]")
+  //     tag_field.setAttribute("value", value)
+  //     $("#hidden_postal_code").append(tag_field)
+  //   })
+  // }
+  // $(".postal").tagit("createTag", "brand-new-tag");
+  // $('.postal').tagit({tagSource:"tag", triggerKeys:['enter', 'comma', 'tab']});
+  function check_salesman_role(){
+    if(<%= current_user.has_role?('salesman_before_sale') %> || <%= current_user.has_role?('salesman') %>){
+      return true
+    }
+    else{
+      return false
+      }
+  }
+</script>
+<script type="text/javascript">
+
+  $().ready(function() {
+    $.validator.addMethod('email', function (value) {
+        return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
+    }, 'Please enter valid email address.');
+  });
+</script>

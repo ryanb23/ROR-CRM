@@ -1,0 +1,58 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-9 col-sm-9">
+      <h2><%= t('activerecord.models.invoices_patient.heading.main') %></h2>
+    </div>
+    <div class="col-md-3 col-sm-3">
+      <% if has_permission(controller_path,"create") %>
+			 <%= render "actions" %>
+      <% end %>
+		</div>
+  </div>
+  <div class="row">
+      <div class="col-md-12">
+          <%= form_tag search_admin_invoices_patients_path, :method => :get,class: "form-horizontal" do |f| %>
+            <div id="search-information" class="box white-bg">
+              <div class="form-heading">
+                  <h3><%= t('activerecord.models.invoices_patient.heading.Search') %></h3>
+                  <div class="divider dark-gray-bg"></div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-4 col-sm-4">
+                    <label for="patient" class="col-sm-12"><%= t('activerecord.models.invoices_patient.fields.Patient') %></label>
+                    <%= select_tag :patient_id,options_for_select(Patient.all.collect { |patient| [patient.user.present? ? patient.user.last_name + " " + patient.user.first_name  : "" , patient.id]},params[:patient_id]), prompt: "Select Patient",class: "form-control patient_invoice_search_patient" %>
+                  </div>
+                  <div class="col-md-4 col-sm-4">
+                    <label for="status" class="col-sm-12"><%= t('activerecord.models.invoices_patient.fields.Status') %></label>
+                    <%= select_tag :status, options_for_select(InvoicesPatient.statuses, params[:status]), prompt: "Select Status",class: "form-control patient_invoice_search_status" %>
+                  </div>
+                  <div class="col-md-2 col-md-offset-10 col-sm-2 col-sm-offset-10">
+                    <button type="button " class="btn btn-default gray-bg pull-right">
+                        Search
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <div id="search-information" class="box white-bg">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="table-heading">
+                <tr>
+                  <th><%= t('activerecord.models.invoices_patient.fields.Patient Name') %></th>
+                  <th><%= t('activerecord.models.invoices_patient.fields.Form Name') %></th>
+                  <th><%= t('activerecord.models.invoices_patient.fields.Amount') %></th>
+                  <th><%= t('activerecord.models.invoices_patient.fields.Status') %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <%= render @resources %>
+							</tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<% resources.each do |setting| %>
+	<div class="row">
+		<%= form_tag update_settings_admin_settings_path, method: :put,id: "settings_form" do |f| %>
+			<div class="col-md-4 col-sm-4">
+				<%= setting.user_type %>
+				</div>
+			<div class="col-md-4 col-sm-4">
+				<%= text_field_tag :price,setting.price,name: "setting[price]",class: "form-control" %>
+			</div>
+			<div class="col-md-4 col-sm-4">
+				<%= hidden_field_tag :id,setting.id %>
+				<%= submit_tag "Update",class: "btn btn-default gray-bg pull-right",id: "update_btn",data: {turbolinks: false} %>
+			</div>
+		<% end %>
+	</div>
+<% end %>

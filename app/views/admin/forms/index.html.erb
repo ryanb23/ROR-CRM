@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-9 col-sm-9">
+      <h2>Upload File</h2>
+    </div>
+    <div class="col-md-3 col-sm-3">
+      <% if has_permission("admin/patients","create") %>
+    	 <%= render "actions" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div id="search-information" class="box white-bg">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="table-heading">
+              <tr>
+                <th><%= t('activerecord.models.patient.fields.Form Number') %></th>
+                <th><%= t('activerecord.models.patient.fields.Form Type') %></th>
+                <th><%= t('activerecord.models.patient.fields.Status') %></th>
+                <th><%= t('activerecord.models.patient.fields.Creation Date') %></th>
+                <th><%= t('activerecord.models.patient.fields.Action') %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= render 'form_data',all_form_data: @all_form_data %>
+              <%#= render 'patient_draft_data',patient_draft_data: @patient_draft_data %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

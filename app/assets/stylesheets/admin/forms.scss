@@ -1,0 +1,40 @@
+.forms {
+  &.show{
+    /* set : after label  */
+    .push-wrapper .form-show-wrapper label:after {
+      content: ":";
+      padding-left: 20px;
+    }
+
+    /* show image css in form show */
+    .img-wrap {
+        position: relative;
+        display: inline-block;
+        font-size: 0;
+    }
+    .img-wrap .close {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        z-index: 100;
+        background-color: #FFF;
+        padding: 5px 2px 2px;
+        color: #000;
+        font-weight: bold;
+        cursor: pointer;
+        opacity: .2;
+        text-align: center;
+        font-size: 22px;
+        line-height: 10px;
+        border-radius: 50%;
+    }
+    .img-wrap:hover .close {
+        opacity: 1;
+    }
+
+    /* Wrap the content of note */
+    .form_note{
+      word-wrap: break-word;
+    }
+ }
+}

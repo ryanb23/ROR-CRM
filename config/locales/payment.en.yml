@@ -1,0 +1,5 @@
+en:
+  payment:
+    in_app:
+      payment_success: "Payment done successfully."
+      payment_failure: "Payment failed."

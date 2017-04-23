@@ -1,0 +1,15 @@
+<% if I18n.locale == :en  %>
+  <% context.instance_eval do
+      dropdown_menu "English" do
+        item "English",change_locale_path(:en)
+        item "French",change_locale_path(:fr)
+     end
+  end %>
+<% elsif I18n.locale == :fr %>
+  <% context.instance_eval do
+    dropdown_menu "French" do
+      item "English",change_locale_path(:en)
+      item "French",change_locale_path(:fr)
+    end
+  end %>
+<% end  %>

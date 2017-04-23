@@ -1,0 +1,17 @@
+<tr>
+	<td>
+	 <%= equipment_brand.name %>
+	</td>
+	<td><%= equipment_brand.equipment_type.name %></td>
+	<% if has_permission(controller_path,"update") || has_permission(controller_path,"destroy") %>
+		<td>
+			<%#= link_to "View", admin_equipment_brand_path(equipment_brand) %>
+		  <% if has_permission(controller_path,"update") %>
+		  	<%= link_to edit_admin_equipment_brand_path(equipment_brand) do %><i class="fa fa-edit"></i><% end %>
+		 	<% end %>
+		  <% if has_permission(controller_path,"destroy") %>
+		  	<%= link_to admin_equipment_brand_path(equipment_brand), data: { confirm: "Are you sure ?" }, method: :delete do %><i class="fa fa-trash"></i><% end %>
+		  <% end %>
+		</td>
+	<% end %>
+</tr>

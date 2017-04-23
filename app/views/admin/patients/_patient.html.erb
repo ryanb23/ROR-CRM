@@ -1,0 +1,28 @@
+<% all_patient_data.each do |patinet_data| %>
+	<tr>
+		<td><%= patinet_data.class == Patient ? patinet_data.try(:patient_forms)[0].try(:id) : patinet_data.try(:id) %></td>
+		<td><%= patinet_data.class == Patient ? patinet_data.try(:patient_forms)[0].try(:form_type) : patinet_data.try(:file_type) %></td>
+		<td><%= patinet_data.class == Patient ? patinet_data.try(:patient_forms)[0].try(:status) : "Draft"%></td>
+		<td><%= patinet_data.class == Patient ? I18n.locale == :en ? patinet_data&.patient_forms[0]&.created_at : patinet_data&.patient_forms[0]&.created_at&.strftime("%d/%m/%Y %H:%M:%S %Z") : I18n.locale == :en ? patinet_data&.created_at : patinet_data&.created_at&.strftime("%d/%m/%Y %H:%M:%S %Z") %></td>
+		<td>
+				<!-- <%#= link_to edit_admin_patient_path(patient) do %><i class="fa fa-edit"></i><%# end %> -->
+			<% if patinet_data.class == PatientDraftDatum %>	
+				<% if has_permission(controller_path,"update") %>
+					<%= link_to edit_admin_patient_draft_datum_path(patinet_data) do %><i class="fa fa-edit"></i><% end %>
+				<% end %>
+				<% if has_permission(controller_path,"destroy") %>
+					<%= link_to admin_patient_draft_datum_path(patinet_data), data: { confirm: "Are you sure ?" }, method: :delete do %><i class="fa fa-trash"></i><% end %>
+				<% end %>
+			<% else %>
+      	<% if has_permission("admin/forms","show") %>
+					<% if patinet_data.try(:patient_forms)[0] %>
+						<%= link_to admin_form_path(patinet_data.try(:patient_forms)[0]) do %><i class="fa fa-eye" aria-hidden="true"></i><% end %>
+				<% end %>
+				<% end %>
+				<% if has_permission(controller_path,"destroy") %>
+					<%= link_to admin_patient_path(patinet_data), data: { confirm: "Are you sure ?" }, method: :delete do %><i class="fa fa-trash"></i><% end %>
+				<% end %>
+			<% end %>
+		</td>
+	</tr>
+<% end %>

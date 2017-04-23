@@ -1,0 +1,57 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+
+en:
+  hello: "Hello world"
+  custom_role_id:
+    root: Root
+    IT_admin: IT Administrator
+    manager: Manager
+    internal_physician_supervisor: Internal Physician Supervisor
+    customer: Customer
+    delegated_customer: Delegated customer
+    establishment_admin: Establishment administrator
+    service_admin: Service administrator
+    physician: Physician
+    technical_service_provider: Technical Service Provider
+    admin_staff: Administrative staff
+    salesman_before_sale: Salesman before sale
+    salesman: Salesman SAV
+    patient: Patient
+  settings:
+    general_setting: General Setting
+    value: Value
+    price: Price
+    action: Action
+    ecg: ECG
+    workflow_type: Workflow Type
+    payment_type: Payment Type
+    billing_price: Billing Price
+    payment_waiting_delay: Payment Waiting Delay
+    analysis_delay: Analysis Delay
+    polygraphic: Polygraphic
+    hour: Hour
+    user_type:
+      provider_price: Provider Price
+      customer_price: Customer Price
+  javascript:
+    please_select: "Please Select"

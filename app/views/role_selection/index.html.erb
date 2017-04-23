@@ -1,0 +1,57 @@
+<section id="login-page" class="valign-wrapper gray-bg">
+        <div class="valign">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+                        <div class="login-box white-bg">
+                            <h2 class="text-uppercase text-center">zanalys</h2>
+                            <!-- <form name="" method="post" action="" class="form-box form-horizontal"> -->
+                            <%#= form_for @user,url:role_selection_get_role_id_path(@customer_role.id) do |f| %>
+                            <%= form_tag set_role_before_sign_up_path ,:class => 'form-box form-horizontal', method: :post do |f| %>
+                                <div class="text-center form-title">
+                                    <h3 class="sub-heading-title">Create an account</h3>
+                                    <span>I am :</span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <%#= link_to f.submit %>
+                                     <%#= f.submit "Customer", class: "user-type-box light-white-bg" do %>
+                                     <%#= link_to new_registration_path(:user,:role => @customer_role.id), class: "user-type-box light-white-bg customer_role button", data: { turbolinks:"false" },onlick: "change_action();" do %>
+                                        <!-- <a href="<%#= new_registration_path(:user,:role => @customer_role.id) %>" class="user-type-box light-white-bg customer_role" data-turbolinks="false" method="post"> -->
+                                        <%#= button_to "test" ,new_registration_path, {:controller => "Users::Registrations", :action => "new", :car_id => "car.id", :user_id=> "session[:user_id]"} , :method=>:get   %>
+                                      <%= button_tag :submit, :class => 'user-type-box light-white-bg customer_role', name: "role", value: @customer_role.id do %>
+                                        <i class="fa fa-user"></i>
+                                        <span>Customer</span>
+                                      <% end %>
+                                        <%#= button_to new_registration_path, method: :get, params: { start_point: 3.month.ago } do %>
+                                            <!-- <i class="fa fa-user"></i> -->
+                                            <!-- <span>Customer</span> -->
+                                          <%# end %>
+                                        <!-- </a> -->
+                                        <%# end %>
+                                        <%# end %>
+                                        <%#= button_tag(type: 'submit', class: "user-type-box light-white-bg", name: "type",value: "customer") do %>
+ 																					<!-- <i class="fa fa-user"></i> Customer -->
+																				<%# end %>
+																				<%#= hidden_field_tag  %>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                      <%= button_tag :submit, :class => 'user-type-box light-white-bg', name: "role", value: @provider_role.id do %>
+                                        <i class="fa fa-user"></i>
+                                        <span>Provider</span>
+                                      <% end %>
+                                        <!-- <a href="<%#= new_registration_path(:user,:role => @provider_role.id) %>" class="user-type-box light-white-bg" data-turbolinks="false" method="post">
+                                            <i class="fa fa-user"></i>
+                                            <span>Provider</span>
+                                        </a> -->
+                                    </div>
+                                </div>
+                            <!-- </form> -->
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- <h1><%#= link_to  new_registration_path(@user) do %><%#= @customer_role.name_en %><%# end %></h1> -->

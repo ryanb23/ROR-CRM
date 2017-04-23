@@ -1,0 +1,34 @@
+<aside class="sidepanel open">
+  <ul class="nav nav-stacked primary-nav">
+    <li class="dropdown">
+      <a href="<%= root_path %>" class="master-link"><span><%= t('activerecord.menus.admin.dashboard') %></span></a>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="master-link" id="master-table-menu-link"><span><%= t('activerecord.menus.admin.master.master') %></span>  <i class="fa fa-chevron-down pull-right"></i></a>
+      <ul class="nav nav-stacked collapsible-menu ">
+        <li class="<%= check_current_ctrl('bank_accounts') %>"><%= link_to admin_bank_accounts_path do %><span><%= t('activerecord.menus.admin.master.bank_accounts') %></span><% end %></li>
+        <li class="<%= check_current_ctrl('equipment') %>"><%= link_to admin_equipment_index_path do %><span><%= t('activerecord.menus.admin.master.equipment') %></span><% end %></li>
+        <li class="<%= check_current_ctrl('equipment_brands') %>"><%= link_to admin_equipment_brands_path do %><span><%= t('activerecord.menus.admin.master.equipment_brands') %></span><% end %></li>
+        <li class="<%= check_current_ctrl('equipment_models') %>"><%= link_to admin_equipment_models_path do %><span><%= t('activerecord.menus.admin.master.equipment_models') %></span><% end %></li>
+        <li class="<%= check_current_ctrl('equipment_types') %>"><%= link_to admin_equipment_types_path do %><span><%= t('activerecord.menus.admin.master.equipment_types') %></span><% end %></li>
+        <li class="<%= check_current_ctrl('establishment_services') %>"><%= link_to admin_establishment_services_path do %><span><%= t('activerecord.menus.admin.master.establishment_services') %></span><% end %></li>
+        <li class="<%= check_current_ctrl('establishments') %>"><%= link_to admin_establishments_path do %><span><%= t('activerecord.menus.admin.master.establishments') %></span><% end %></li>
+        <li><a href="#"><span><%= t('activerecord.menus.admin.master.invoices') %></span></a></li>
+        <li class="<%= check_current_ctrl('plans') %>"><%= link_to admin_plans_path do %><span><%= t('activerecord.menus.admin.master.plans') %></span><% end %></li>
+        <li class="<%= check_current_ctrl('positions') %>"><%= link_to admin_positions_path do %><span><%= t('activerecord.menus.admin.master.positions') %></span><% end %></li>
+        <!-- <li class="<%#= check_current_ctrl('roles') %>"><%#= link_to admin_roles_path do %><span>Roles</span><%# end %></li> -->
+        <li class="<%= check_current_ctrl('skills') %>"><%= link_to admin_skills_path do %><span><%= t('activerecord.menus.admin.master.skills') %></span><% end %></li>
+        <li class="check_current_ctrl('specialities')"><%= link_to admin_specialities_path do %><span><%= t('activerecord.menus.admin.master.specialities') %></span><% end %></li>
+        <li><a href="#"><span><%= t('activerecord.menus.admin.master.subscription') %></span></a></li>
+        <li class="<%= check_current_ctrl('forms') %>"><%= link_to admin_forms_path do %><span><%= t('activerecord.menus.admin.master.upload_file') %></span><% end %></li>
+        <li class="check_current_ctrl('users')"><%= link_to admin_users_path do %><span><%= t('activerecord.menus.admin.master.user') %></span><% end %></li>
+        <% if has_permission('admin/users',"accounts_to_active") %>
+          <li class="check_current_ctrl('users')"><%= link_to accounts_to_active_admin_users_path do %><span><%= t('activerecord.menus.admin.master.list_of_accounts_to_activate') %></span><% end %></li>
+        <% end %>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="<%= admin_permissions_path %>" class="master-link"><span>Manage Permissions</span></a>
+    </li>
+  </ul>
+</aside>

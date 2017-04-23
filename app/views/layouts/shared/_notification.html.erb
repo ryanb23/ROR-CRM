@@ -1,0 +1,7 @@
+<li class = "<%= notification.is_read ? 'read_class' : 'unread_class'  %>">
+  <a id="notification-redirect-link" href="<%= notification.redirect_url %>" data-notification-id="<%= notification.id %>" data-turbolinks="off">
+    <h4><%= notification.title %></h4>
+    <p><%= notification.description %></p>
+  </a>
+</li>
+<li class="divider"></li>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: 
+  ethenic_group: MyString
+  weight: 
+  height: 
+  social_security_number: MyString
+  patient_agreement: 
+  trusted_person_name: MyString
+
+two:
+  user: 
+  ethenic_group: MyString
+  weight: 
+  height: 
+  social_security_number: MyString
+  patient_agreement: 
+  trusted_person_name: MyString

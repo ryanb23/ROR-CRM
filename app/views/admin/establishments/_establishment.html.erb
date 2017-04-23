@@ -1,0 +1,15 @@
+<tr>
+	<td><%= establishment.name %></td>
+	<td><%= establishment.iban %></td>
+	<td><%= establishment.bic %></td>
+	<% if has_permission(controller_path,"update") || has_permission(controller_path,"destroy") %>
+		<td>
+			<% if has_permission(controller_path,"update") %>
+				<%= link_to edit_admin_establishment_path(establishment) do %><i class="fa fa-edit"></i><% end %>
+			<% end %>
+			<% if has_permission(controller_path,"destroy") %>
+				<%= link_to admin_establishment_path(establishment), data: { confirm: "Are you sure ?" }, method: :delete do %><i class="fa fa-trash"></i><% end %>
+			<% end %>
+		</td>
+	<% end %>
+</tr>

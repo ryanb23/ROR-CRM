@@ -1,0 +1,18 @@
+// Place all the styles related to the admin/Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.custom_service label {
+		margin-top: 0px;
+	}
+
+	.select2-container--default {
+		width: 100% !important;
+	}
+	.custom_input_group {
+		margin: 10px 0 0 -14px;
+    float: left;
+	}
+	.custom_input_group input {
+		margin-left: 14px;
+		margin-right: 6px;
+	}

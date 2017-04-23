@@ -1,0 +1,2 @@
+class PatientTemporaryFile < ApplicationRecord
+end

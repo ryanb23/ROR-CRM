@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  form_type: 1
+  name: MyString
+  patient: one
+  user: one
+  medical_context: MyString
+  status: 1
+
+two:
+  form_type: 1
+  name: MyString
+  patient: two
+  user: two
+  medical_context: MyString
+  status: 1

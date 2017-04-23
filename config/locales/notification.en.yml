@@ -1,0 +1,9 @@
+en:
+  notification:
+    user:
+      create:
+        title: "PENDING USER"
+        description: "New user created. Please approve user."
+      update:
+        title: "USER UPDATE"
+        description: "%{identity} update their profile."

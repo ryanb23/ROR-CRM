@@ -1,0 +1,84 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <h2><%= action_type(@resource) %> Role</h2>
+    </div>
+  </div>
+  <div class="row">
+  	<div class="has-error">
+  	  <% if @resource.errors.any? %>
+  	    <div class="blockquote-box clearfix">
+  	      <span class="help-block">
+  	       <b>ERROR:</b>
+  	        <ul>
+  		        <% @resource.errors.full_messages.each do |msg| %>
+  		          <li><%= msg %></li>
+  		      	<% end %>
+  	     		</ul>
+  	     </span>
+  	    </div>
+  	  <% end %>
+  	</div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+    	<%= form_for [:admin, @resource],class: "form-horizontal" do |f| %>
+      <%= hidden_field_tag "role[permission_ids][]", nil %>
+        <div id="search-information" class="box white-bg">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-6 col-sm-6">
+                <label for="name_en" class="col-sm-12"><%= t('activerecord.models.role.fields.Name In English') %></label>
+               	<%= f.text_field :name_en,class: "form-control",placeholder: "name_en",required: "required" %>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <label for="name_fr" class="col-sm-12"><%= t('activerecord.models.role.fields.Name In French') %></label>
+               	<%= f.text_field :name_fr,class: "form-control",placeholder: "name_fr",required: "required" %>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <h1>Permissions</h1>
+                <% roles = Role.includes(:permissions).all %>
+                <% all_controller = Permission.all %>
+                <% uniq_controller = Permission.all.uniq.pluck(:subject_class) %>
+                  <div class="accordion panel-group" id="accordion2">
+                <% uniq_controller.each do |permission| %>
+                      <div class="panel panel-default">
+                        <%= link_to "##{permission.split('::').join}" ,data: {parent: "#accordion2", toggle: "collapse"} do %>
+                          <div class="panel-heading">
+                              <h3 class="panel-title">
+                                 <%= permission.demodulize == "Registrations" ? "Other" :
+                                 (permission.demodulize == "nil" ? "Administration" : permission.demodulize) %>
+                              </h3>
+                          </div>
+                        <% end %>
+                        <div id="<%= permission.split('::').join %>" class="panel-collapse collapse">
+                          <div class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="card-block">
+                              <table>
+                                <% all_controller.each do |cont| %>
+                                  <% if cont.subject_class == permission %>
+                                    <tr>
+                                      <td><%= I18n.locale == :en ? cont.name_en : cont.name_fr%></td>
+                                      <td>
+                                        <%= f.check_box :permission_ids, {multiple: true}, cont.id, nil %></td>
+                                    </tr>
+                                  <% end %>
+                                <% end %>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                <% end %>
+                  </div>
+              </div>
+              <div class="col-md-2 col-md-offset-10 col-sm-4">
+              	<%= f.submit action_type_for_button(@resource),class: "btn btn-default gray-bg pull-right" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

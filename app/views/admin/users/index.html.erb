@@ -1,0 +1,100 @@
+<!-- <br> -->
+<%#= render "actions" %>
+<!-- <br> -->
+<%#= render @resources %>
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-md-9 col-sm-9">
+          <h2>User</h2>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <% if has_permission(controller_path,"create") %>
+          <%= render "actions" %>
+        <% elsif has_permission(controller_path,"pre_creation_user") %>
+          <%= link_to "New User" ,pre_creation_user_admin_users_path ,data: {turbolinks: false}, class: "btn btn-default gray-bg",style: "margin-top: 10px;"%>
+        <% end %>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-12">
+        <% if has_permission(controller_path,"search") %>
+          <%= form_tag search_admin_users_path, :method => :get,class: "form-horizontal" do |f| %>
+            <div id="search-information" class="box white-bg">
+              <div class="form-heading">
+                  <h3>search</h3>
+                  <div class="divider dark-gray-bg"></div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-4 col-sm-4">
+                    <label for="first_name" class="col-sm-12">First Name</label>
+                    <%= text_field_tag :first_name,params[:first_name],class: "form-control",placeholder: "First Name" %>
+                  </div>
+                  <div class="col-md-4 col-sm-4">
+                    <label for="last_name" class="col-sm-12">Last Name</label>
+                    <%= text_field_tag :last_name,params[:last_name],class: "form-control",placeholder: "Last Name" %>
+                  </div>
+                  <div class="col-md-4 col-sm-4">
+                  <%#= exit %>
+                    <label for="emp_status" class="col-sm-12">Employment Status</label>
+                    <div class="input-group custom_input_group">
+                      <%= radio_button_tag 'emp_status', '1' %>Self Employed
+                      <%= radio_button_tag 'emp_status', '2' %>Employee
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4 col-sm-4">
+                    <label for="admin_user_establishment" class="col-sm-12">Establishment</label>
+                    <%= select_tag :establishment_id,options_for_select(Establishment.all.order("name").collect { |eb| [eb.name, eb.id]},params[:establishment_id]), prompt: "Select Establishment",class: "form-control",id: "admin_side_user_establishment" %>
+                  </div>
+                  <div class="col-md-4 col-sm-4 admin_service" id="admin_service">
+                    <label for="admin_side_user_establishment_service" class="col-sm-12">Establishment Service</label>
+                    <!-- <%= select_tag :establishment_service_id,options_for_select("","Select"), prompt: " Establishment Service",class: "form-control",id: "admin_side_user_establishment_service" %> -->
+                    <%= select_tag :establishment_service_id,options_for_select(EstablishmentService.all.order("name").collect { |eb| [eb.name, eb.id]},params[:establishment_service_id]), prompt: "Select Establishment Service",class: "form-control",id: "admin_side_user_establishment_service" %>
+                  </div>
+                  <div class="col-md-4 col-sm-4">
+                    <label for="speciality " class="col-sm-12">Speciality</label>
+                    <%= select_tag :speciality_id,options_for_select(Speciality.all.collect { |s| [s.name_en, s.id]},params[:speciality_id]), prompt: "Select Speciality",class: "form-control",id: "admin_side_user_speciality" %>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4 col-sm-4">
+                    <label for="role" class="col-sm-12">Role</label>
+                    <%= select_tag :role_id,options_for_select(Role.all.collect { |r| [r.name_en, r.id]},params[:role_id]), prompt: "Select Role",class: "form-control",id: "admin_side_user_role" %>
+                  </div>
+                  <div class="col-md-2 col-md-offset-10 col-sm-2 col-sm-offset-10">
+                    <button type="button " class="btn btn-default gray-bg pull-right">
+                        Search
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+          <div id="search-information" class="box white-bg">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="table-heading">
+                    <tr>
+                      <th><%= t('activerecord.attributes.user.email') %></th>
+                      <th><%= t('activerecord.attributes.user.first_name') %></th>
+                      <th><%= t('activerecord.attributes.user.last_name') %></th>
+                      <th><%= t('activerecord.attributes.user.birth_date') %></th>
+                      <th><%= t('activerecord.attributes.user.status') %></th>
+                      <% if has_permission(controller_path,"update") || has_permission(controller_path,"destroy") %>
+                        <th><%= t('activerecord.attributes.user.action') %></th>
+                      <% end %>
+                    </tr>
+                </thead>
+                <tbody>
+                	<%#= render @resources %>
+                  <%= render 'user', users: @resources %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>

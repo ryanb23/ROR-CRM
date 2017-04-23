@@ -1,0 +1,160 @@
+// for password meter
+
+meter {
+  width: 80%;
+  // Reset the default appearance
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  // Applicable only to Firefox
+  background: none;
+  background-color: rgba(0,0,0,0.1);
+ }
+
+ meter::-webkit-meter-bar {
+    background: none;
+    background-color: rgba(0,0,0,0.1);
+ }
+
+meter[value="1"]::-webkit-meter-optimum-value { background: red; }
+meter[value="2"]::-webkit-meter-optimum-value { background: yellow; }
+meter[value="3"]::-webkit-meter-optimum-value { background: orange; }
+meter[value="4"]::-webkit-meter-optimum-value { background: green; }
+
+meter[value="1"]::-moz-meter-bar { background: red; }
+meter[value="2"]::-moz-meter-bar { background: yellow; }
+meter[value="3"]::-moz-meter-bar { background: orange; }
+meter[value="4"]::-moz-meter-bar { background: green; }
+
+// for password-info box
+
+#pswd_info {
+  position: relative;
+  bottom: 2px;
+  left: 22%;
+  width: 231px;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px #ccc;
+  border: 1px solid #ddd;
+  display: none;
+}
+#pswd_info h4 {
+  margin:0 0 10px 0;
+ }
+#pswd_info::before {
+  content: "\25B2";
+  position:absolute;
+  top:-12px;
+  left:45%;
+  font-size:14px;
+  line-height:14px;
+  color:#ddd;
+}
+.invalid {
+  padding-left:22px;
+  line-height:24px;
+  color:#ec3f41;
+}
+.valid {
+  padding-left:22px;
+  line-height:24px;
+  color:#3a7d34;
+}
+
+
+
+.slided_down{
+  overflow: auto!important;
+  height: 300px!important;
+}
+#header{
+  z-index: 0;
+}
+#header #tabs{
+  overflow-x: hidden;
+}
+#manage-permission{
+  color: #1e2a33;
+  background-color: #e73c3c;
+  padding: 7px 10px !important;
+  display: inline-block;
+  margin-bottom: 5px;
+  text-decoration: none;
+  color: #fff;
+}
+li .choice{
+  padding: 0px;
+}
+html form fieldset.inputs ol > li label{
+  padding-top: 0px;
+}
+#permission_permissions_input fieldset label,
+#role_permissions_input fieldset label{
+  width: 21%
+}
+#role_permissions_input fieldset{
+  width: 25%
+}
+#permission_permissions_input{
+  list-style-type: none;
+}
+.btn-save{
+  height: 30px !important;
+}
+#new_permission{
+  overflow: auto;
+  white-space: nowrap;
+}
+.table_tools .scopes{
+  width: 30% !important;
+}
+.user_dumy{
+  margin-left: 21%;
+}
+.action_item_left a{
+  float: left;
+}
+ html #title_bar .action_items a{
+  padding: 10px;
+}
+
+// role collapse
+
+.card {
+  position: relative;
+  display: block;
+  margin-bottom: 0.75rem;
+  background-color: #fff;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.125)
+}
+.card-header:first-child {
+  border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+  }
+.card-header {
+  padding: 0.50rem 1.25rem;
+  margin-bottom: 0;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+h5, .h5 {
+    font-size: 1.10rem;
+}
+a, a:link, a:visited {
+  color: #38678b;
+  text-decoration: underline;
+}
+.collapse {
+  display: none;
+}
+.card-block {
+    padding-left: 1.25rem;
+}
+.role_table tr td {
+  width: 10%;
+}

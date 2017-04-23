@@ -1,0 +1,14 @@
+<tr>
+	<td><%= skill.name_en %></td>
+	<td><%= skill.name_fr %></td>
+	<% if has_permission(controller_path,"update") || has_permission(controller_path,"destroy") %>
+		<td>
+			<% if has_permission(controller_path,"update") %>
+				<%= link_to edit_admin_skill_path(skill) do %><i class="fa fa-edit"></i><% end %>
+			<% end %>
+			<% if has_permission(controller_path,"destroy") %>
+				<%= link_to admin_skill_path(skill), data: { confirm: "Are you sure ?" }, method: :delete do %><i class="fa fa-trash"></i><% end %>
+			<% end %>
+		</td>
+	<% end %>
+</tr>

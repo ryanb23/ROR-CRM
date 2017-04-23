@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  invoice_date: 2016-11-03 16:47:59
+  invoice_amount: 9.99
+  subscription: one
+
+two:
+  invoice_date: 2016-11-03 16:47:59
+  invoice_amount: 9.99
+  subscription: two

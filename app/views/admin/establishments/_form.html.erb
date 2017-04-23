@@ -1,0 +1,81 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <h2><%= action_type(@resource) %> Establishment</h2>
+    </div>
+  </div>
+  <div class="row">
+  	<div class="has-error">
+  	  <% if @resource.errors.any? %>
+  	    <div class="blockquote-box clearfix">
+  	      <span class="help-block">
+  	       <b>ERROR:</b>
+  	        <ul>
+  		        <% @resource.errors.full_messages.each do |msg| %>
+  		          <li><%= msg %></li>
+  		      	<% end %>
+  	     		</ul>
+  	     </span>
+  	    </div>
+  	  <% end %>
+  	</div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+    	<%= form_for [:admin, @resource],class: "form-horizontal" do |f| %>
+        <div id="search-information" class="box white-bg">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-6 col-sm-6">
+                <label for="user" class="col-sm-12"><%= t('activerecord.models.establishment.fields.Salesman') %></label>
+                <% @roles = Role.where("name_en LIKE ?", "Salesman%") %>
+                <% salesman_role = current_user.has_role?("salesman") || current_user.has_role?("salesman_before_sale") %>
+                <% if params[:action] == "new" %>
+                  <%= f.select(:user_ids, User.joins(:user_roles).where("role_id IN (?) ", @roles.ids ).uniq.order("first_name").collect {|c| [c.first_name + " " + c.last_name , c.id ]},{:selected => (salesman_role && params[:action] == "new" ? current_user.id : '')},{class: "form-control", name: "establishment[salesman_id]"}) %>
+                <% elsif params[:action] == "edit" %>
+                  <%= f.select(:user_ids, User.joins(:user_roles).where("role_id IN (?) ", @roles.ids ).uniq.order("first_name").collect {|c| [c.first_name + " " + c.last_name , c.id ]},{:selected => @resource.salesman_id},{class: "form-control", name: "establishment[salesman_id]"}) %>
+                <% end %>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <label for="Name" class="col-sm-12"><%= t('activerecord.models.establishment.fields.Name') %></label>
+               	<%= f.text_field :name,class: "form-control",placeholder: "Name",required: "required" %>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <label for="iban" class="col-sm-12"><%= t('activerecord.models.establishment.fields.IBAN') %></label>
+               	<%= f.text_field :iban,class: "form-control",placeholder: "iban",required: "required" %>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <label for="bic" class="col-sm-12"><%= t('activerecord.models.establishment.fields.BIC') %></label>
+               	<%= f.text_field :bic,class: "form-control",placeholder: "bic",required: "required" %>
+              </div>
+               <div class="col-md-6 col-sm-6">
+                <label for="plan" class="col-sm-12"><%= t('activerecord.models.establishment.fields.Plan') %></label>
+                <%= f.select(:plan_id, Plan.all.collect {|c| [c.name, c.id ]},{},{class: "form-control "}) %>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <label for="address" class="col-sm-12"><%= t('activerecord.models.establishment.fields.address') %></label>
+                <%= f.text_field :address,class: "form-control",placeholder: "address" %>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <label for="postal_code" class="col-sm-12"><%= t('activerecord.models.establishment.fields.Postal Code') %></label>
+                <%= f.text_field :postal_code,class: "form-control",placeholder: "postal code" %>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <label for="city" class="col-sm-12"><%= t('activerecord.models.establishment.fields.City') %></label>
+                <%= f.text_field :city,class: "form-control",placeholder: "city" %>
+              </div>
+              <div class="col-md-6 col-sm-6 country-select">
+                <label for="country" class="col-sm-12"><%= t('activerecord.models.establishment.fields.Country') %></label>
+                <%= f.select(:country, Country.all.collect {|c| [c.name_with_tel_code, c.telephone_code ]},{},{class: "form-control country"}) %>
+              </div>
+              <div class="col-md-2 col-md-offset-10 col-sm-4">
+              	<!-- <%= f.submit "Add",class: "btn btn-default gray-bg pull-right" %> -->
+                <button type="button" onclick="check_postal_code_submit_form('<%= action_name %>')" class="btn btn-default gray-bg pull-right"><%= action_type_for_button(@resource) %></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

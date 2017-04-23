@@ -1,0 +1,145 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>File</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div id="general-information" class="box white-bg">
+        <div class="form-heading">
+            <h3>Uploaded File</h3>
+            <div class="divider dark-gray-bg"></div>
+        </div>
+        <div class="form-group form-show-wrapper">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h4 for="accoun-type" class="control-label">1. <%= t('activerecord.models.patient.fields.File Type') %></h4>
+                </div>
+                <div class="col-sm-8">
+                  <%= @resource&.form_type || '-' %>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-show-wrapper">
+            <h4 for="informations" class="col-sm-12 control-label">2. <%= t('activerecord.models.patient.fields.Patient Information') %></h4>
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                  <div class="row">
+                    <label for="lastname" class="col-sm-4 col-md-4"><%= t('activerecord.models.patient.fields.Last Name') %></label>
+                    <span class="col-sm-8 col-md-8"><%= @resource&.patient&.user&.last_name || '-' %></span>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                  <div class="row">
+                    <label for="firstname" class="col-sm-4 col-md-4"><%= t('activerecord.models.patient.fields.First Name') %></label>
+                    <span class="col-sm-8 col-md-8"><%= @resource&.patient&.user&.first_name || '-' %></span>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-4 ">
+                  <div class="row">
+                    <label for="sex " class="col-sm-4 col-md-4"><%= t('activerecord.models.patient.fields.Sex') %></label>
+                    <span class="col-sm-8 col-md-8"><%= @resource.patient&.user&.gender || '-' %></span>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                  <div class="row">
+                    <label for="date_of_birth" class="col-sm-6 col-md-6"><%= t('activerecord.models.patient.fields.Date of Birth') %></label>
+                    <span class="col-sm-6 col-md-6"><%= @resource.patient&.user&.birth_date || '-' %></span>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-4 ">
+                  <div class="row">
+                    <label for="ethnic-group" class="col-sm-6 col-md-6"><%= t('activerecord.models.patient.fields.Ethnic Group') %></label>
+                      <span class="col-sm-6 col-md-6"><%= @resource.patient&.ethenic_group || '-' %></span>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-4 ">
+                  <div class="row">
+                    <label for="social-security-number" class="col-sm-8 col-md-8"><%= t('activerecord.models.patient.fields.Social Security Number') %></label>
+                    <span class="col-sm-4 col-md-4"><%= @resource.patient&.social_security_number || '-' %></span>
+                  </div>
+                </div>
+                <br>
+                <div class="col-md-4 col-sm-4 ">
+                  <div class="row">
+                    <label for="weight " class="col-sm-4 col-md-4"><%= t('activerecord.models.patient.fields.Weight') %></label>
+                    <span class="col-sm-8 col-md-8"><%= @resource.patient&.weight || '-' %></span>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-4 ">
+                  <div class="row">
+                    <label for="size " class="col-sm-4 col-md-4"><%= t('activerecord.models.patient.fields.Size') %></label>
+                    <span class="col-sm-8 col-md-8"><%= @resource.patient&.height || '-' %></span>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-4 ">
+                  <div class="row">
+                    <label for="health-insurance" class="col-sm-4 col-md-4"><%= t('activerecord.models.patient.fields.Health Insurance') %></label>
+                    <span class="col-sm-8 col-md-8"><%= @resource.patient&.health_insurance || '-' %></span>
+                  </div>
+                </div>
+            <div class="col-md-12 col-sm-12">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                    <label for="Medical Context" class="col-sm-4 col-md-4"><%= t('activerecord.models.patient.fields.Medical Context') %></label>
+                      <span class="col-sm-8 col-md-8"><%= @resource&.medical_context || '-' %></span>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                      <label for="contextes-medical" class="col-sm-2 col-md-2"><%= t('activerecord.models.patient.fields.Note') %></label>
+                      <span class="col-sm-10 col-md-10 form_note"><%= @resource&.note || '-' %></span>
+                    </div>
+                </div>
+            </div>
+                <div class="col-md-6 col-sm-6">
+                  <div class="row">
+                    <label for="email" class="col-sm-4 col-md-4"><%= t('activerecord.models.patient.fields.Email') %></label>
+                    <span class="col-sm-8 col-md-8"><%= @resource&.patient&.user&.email || '-' %></span>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <div class="row">
+                    <label for="phone-number" class="col-sm-6 col-md-6"><%= t('activerecord.models.patient.fields.Phone Number') %></label>
+                    <span class="col-sm-6 col-md-6"><%= @resource&.patient&.user&.phone || '-' %></span>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-show-wrapper">
+            <h4 for="informations" class="col-sm-12 control-label">3. <%= t('activerecord.models.patient.fields.Patient Information') %></h4>
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                  <div class="row">
+                    <label class="col-md-4 col-sm-4 "><%= t('activerecord.models.patient.fields.Patient agreement') %></label>
+                    <span class="col-sm-8 col-md-8"><%= @resource&.patient&.patient_agreement || '-' %></span>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6 trusted_person_name">
+                  <div class="row">
+                    <% unless @resource.patient.trusted_person_name.empty? %>
+                      <label for="trusted-person-name" class="col-md-4 col-sm-4 "><%= t('activerecord.models.patient.fields.Trusted person name') %></label>
+                      <span class="col-sm-8 col-md-8"><%= @resource&.patient&.trusted_person_name || '-' %></span>
+                    <% end %>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-show-wrapper">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <h4 for="informations" class="control-label" style="margin-top:12px;">4. Uploaded Files</h4>
+                </div>
+                <div class="col-md-12 col-sm-12 ">
+                  <% @resource.form_files.each do |form_file| %>
+                    <div class="img-wrap col-sm-4 col-md-4 col-xs-12">
+                      <span class="close">&times;</span>
+                      <%= image_tag form_file.file.url(:medium) ,class: "form-file img-responsive",alt: "" %>  
+                    </div>
+                  <% end %>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

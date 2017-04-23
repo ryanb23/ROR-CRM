@@ -1,0 +1,14 @@
+<tr>
+	<td><%= role.name_en %></td>
+	<td><%= role.name_fr %></td>
+	<td>
+			<%# if has_permission(controller_path,"update") %>
+		<%= link_to edit_admin_permission_path(role) do %><i class="fa fa-edit"></i><% end %>
+		<% if can? :manage, role %>
+			<%# end %>
+			<%# if has_permission(controller_path,"destroy") %>
+				<%= link_to admin_permission_path(role), data: { confirm: "Are you sure ?" }, method: :delete do %><i class="fa fa-trash"></i><% end %>
+			<%# end %>
+		<% end %>
+		</td>
+</tr>

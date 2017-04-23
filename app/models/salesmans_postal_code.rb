@@ -1,0 +1,3 @@
+class SalesmansPostalCode < ApplicationRecord
+  belongs_to :user
+end

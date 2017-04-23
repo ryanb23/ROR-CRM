@@ -1,0 +1,52 @@
+en:
+  bank_account:
+    new_bank_account: "New Bank Account"
+  equipment:
+    new_equipment: "New Equipment"
+  equipment_brand:
+    new_equipment_brand: "New Equipment Brand"
+  equipment_model:
+    new_equipment_model: "New Equipment Model"
+  equipment_type:
+    new_equipment_type: "New Equipment Type"
+  establishment_service:
+    new_establishment_service: "New Establishment Service"
+  establishment:
+    new_establishment: "New Establishment"
+  plan:
+    new_plan: "New Plan"
+  position:
+    new_position: "New Position"
+  role:
+    new_role: "New Role"
+  skill:
+    new_skill: "New Skill"
+  insurance:
+    add_insurance: 'Add Insurance'
+    add_insurance_file: 'Add Insurance File'
+  skill:
+    add_skill: "Add a skill"
+    new_skill: "New Skill"
+  speciality:
+    new_speciality: "New Speciality"
+  setting:
+    general_setting: "General Setting"
+    value: "Value"
+    price: "Price"
+    action: "Action"
+    ecg: "ECG"
+    workflow_type: "Workflow Type"
+    payment_type: "Payment Type"
+    billing_price: "Analysis Price"
+    technical_provider_price: "Technical Provider Price"
+    payment_waiting_delay: "Payment Delay"
+    technical_provider_delay: "Technical Provider Delay"
+    analysis_delay: "Analysis Delay"
+    action: "Action"
+    polygraphic: "Polygraphic"
+  form:
+    new_form: "New Form"
+  remove: "Remove"
+  validate: "Validate"
+  cancel: "Cancel"
+  serach: "Serach"

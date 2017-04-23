@@ -1,0 +1,9 @@
+<li class="dropdown notification">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button " aria-haspopup="true " aria-expanded="false ">
+      <i class="fa fa-bell-o"></i>
+      <span class="badge"><%= unread_notification_count %></span>
+  </a>
+  <ul class="dropdown-menu" id="notification-list">
+    <%= render partial: 'layouts/shared/notification', collection: get_current_user_notifications %>
+  </ul>
+</li>

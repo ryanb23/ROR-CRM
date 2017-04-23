@@ -1,0 +1,17 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+ 		<div class="modal-header">
+    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    	<h4 id="myModalLabel"><%= @resource.proof_file_name %></h4>
+  	</div>
+  	<div class="modal-body">
+  		<div class="row">
+  			<div class="col-sm-12">
+  				<%= image_tag @resource.proof.url ,class: "form-file img-responsive",alt: ""%>
+  			</div>
+  		</div>
+		</div>
+	</div>
+</div>
+ 
+<%#= link_to "Back" , our_work_path %>

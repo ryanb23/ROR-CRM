@@ -1,0 +1,26 @@
+<% all_form_data.each do |form| %>
+	<tr>
+		<td><%= form&.id %></td>
+		<td><%= form.try(:file_type) %></td>
+		<td><%= form.class == Form ? form&.status : "Draft" %></td>
+		<td><%= I18n.locale == :en ? form&.created_at : form&.created_at&.strftime("%d/%m/%Y %H:%M:%S %Z") %></td>
+		<td>
+				<!-- <%#= link_to edit_admin_patient_path(patient) do %><i class="fa fa-edit"></i><%# end %> -->
+			<% if form.class == PatientDraftDatum %>	
+				<% if has_permission(controller_path,"update") %>
+					<%= link_to edit_admin_patient_draft_datum_path(form) do %><i class="fa fa-edit"></i><% end %>
+				<% end %>
+				<% if has_permission(controller_path,"destroy") %>
+					<%= link_to admin_patient_draft_datum_path(form), data: { confirm: "Are you sure ?" }, method: :delete do %><i class="fa fa-trash"></i><% end %>
+				<% end %>
+			<% else %>
+      	<% if has_permission(controller_path,"show") %>
+					<%= link_to admin_form_path(form) do %><i class="fa fa-eye" aria-hidden="true"></i><% end %>
+				<% end %>
+				<% if has_permission(controller_path,"destroy") %>
+					<%= link_to admin_form_path(form), data: { confirm: "Are you sure ?" }, method: :delete do %><i class="fa fa-trash"></i><% end %>
+				<% end %>
+			<% end %>
+		</td>
+	</tr>
+<% end %>

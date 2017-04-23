@@ -1,0 +1,30 @@
+div .error{
+  color: red;
+}
+.help-block{
+	color: red;
+}
+.push-wrapper input[type="radio"] {
+  height: auto;
+}
+.push-wrapper .radio {
+  margin: 0px 20px;
+}
+.push-wrapper .radio-inline {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+}
+.hour_textbox{
+	max-width: 94px;
+  float: left;
+  position: relative;
+}
+.hour_label{
+	padding-top: 10px;
+  padding-left: 10px !important;
+}
+.setting_wrapper{
+  margin-left: 20px;
+  margin-right: 10px;
+}

@@ -1,0 +1,15 @@
+<tr>
+	<td><%= speciality.name_en %></td>
+	<td><%= speciality.name_fr %></td>
+	<td><%= speciality.description %></td>
+	<% if has_permission(controller_path,"update") || has_permission(controller_path,"destroy") %>
+		<td>
+			<% if has_permission(controller_path,"update") %>
+				<%= link_to edit_admin_speciality_path(speciality) do %><i class="fa fa-edit"></i><% end %>
+			<% end %>
+			<% if has_permission(controller_path,"destroy") %>
+				<%= link_to admin_speciality_path(speciality), data: { confirm: "Are you sure ?" }, method: :delete do %><i class="fa fa-trash"></i><% end %>
+			<% end %>
+		</td>
+	<% end %>
+</tr>

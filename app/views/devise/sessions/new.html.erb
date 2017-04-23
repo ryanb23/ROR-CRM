@@ -1,0 +1,81 @@
+<section id="login-page" class="valign-wrapper gray-bg">
+  <div class="valign">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+          <div class="login-box white-bg">
+            <h2 class="text-uppercase text-center">zanalys</h2>
+              <%#= form_for(resource, as: resource_name, url: user_session_path,class: "login-form form-horizontal") do |f| %>
+              <%# end %>
+                <form  method="post" action="<%= user_session_path %>" class="login-form form-horizontal">
+                <%= token_tag %>
+                <div class="has-error">
+                  <% if flash[:error].present? %>
+                    <div class="blockquote-box clearfix">
+                      <span class="help-block"><b>ERROR:</b> <%= flash[:error] %></span>
+                    </div>
+                  <% end %>
+                  <% if flash[:alert].present? %>
+                    <div class="blockquote-box clearfix">
+                      <span class="help-block"><b>ERROR:</b> <%= flash[:alert] %></span>
+                    </div>
+                  <% end %>
+                </div>
+                <div class="form-group">
+                  <div class="col-md-12">
+                    <input type="email" class="form-control" id="login" placeholder="Login" name= "user[email]">
+                    <%#= f.email_field :email, autofocus: true, class: "form-control",id: "login",placeholder: "Login" %>
+                    <!-- <span class="help-block">Username is inva</span> -->
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-md-12">
+                    <input type="password" class="form-control" id="password" placeholder="Password" name="user[password]">
+                    <%#= f.password_field :password, autocomplete: "off", class: "form-control",id: "password", placeholder: "Password" %>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="checkbox ">
+                      <label class="gray-text text-size-14">
+                        <% if devise_mapping.rememberable? -%>
+                          <input type="checkbox" name="remember"><span>Remember me</span>
+                          <!-- <%#= f.check_box :remember_me %><span>Remember me</span> -->
+                        <% end %>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+                      <%= link_to "forgotten password ?", new_password_path(resource_name),class: "forgot-link gray-text text-right text-size-14" %>
+                    <% end -%>
+                    <!-- <a href="#" class="forgot-link gray-text text-right text-size-14">forgotten password ?</a> -->
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-md-12">
+                    <%#= f.submit "Connect",class: "btn btn-default gray-bg" %>
+                    <button type="submit" class="btn btn-default gray-bg">Connect</button>
+                  </div>
+                </div>
+              <%# end %>
+            </form>
+              <div class="divider"></div>
+              <div class="login-form login-footer text-center">
+                <div class="row">
+                  <div class="col-md-12">
+                    <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+                      <%= link_to "Don't have an account ?", role_selection_index_path, data: {turbolinks: "false"} %>
+                    <% end %>
+                      <!-- <a href="#"><span>Don't have an account ?</span></a> -->
+                      <%= link_to "Don't have an account", role_selection_index_path, data: {turbolinks: "false"},class: "btn btn-default" %>
+                      <!-- <button type="submit" class="btn btn-default">Create an account</button> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
